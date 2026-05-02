@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "command",
+        "command": "python3 /chemin/vers/hooks/bash-command-validator/hook.sh"
+      }]
+    }]
+  }
+}

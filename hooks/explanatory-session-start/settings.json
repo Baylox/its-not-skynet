@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "SessionStart": [{
+      "hooks": [{
+        "type": "command",
+        "command": "/chemin/vers/hooks/explanatory-session-start/hook.sh"
+      }]
+    }]
+  }
+}
