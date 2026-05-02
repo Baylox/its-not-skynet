@@ -15,3 +15,9 @@
 - Les hooks sont déterministes — aucune logique IA, uniquement du shell
 - Les skills suivent la convention snake_case préfixée par domaine
 - Rien ne dépend d'un réseau non maîtrisé à l'exécution
+
+## Ressources officielles
+
+Les skills préfixés `anthropics/` dans `skills/` proviennent du repo
+officiel Anthropic sur [anthropics/skills](https://github.com/anthropics/skills). Ils sont intégrés sans
+modification du contenu original.
