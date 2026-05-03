@@ -32,4 +32,6 @@ Les fichiers sont en `snake_case`, préfixés par domaine :
 
 ## Hooks
 
-Les hooks sont déterministes — aucune logique IA, uniquement du shell.
+Les hooks privilégient le déterminisme (shell pur).
+Les hooks avec dépendances LLM sont acceptés mais doivent être
+explicitement marqués comme tels dans leur META.md.
