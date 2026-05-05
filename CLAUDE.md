@@ -35,3 +35,23 @@ Les fichiers sont en `snake_case`, préfixés par domaine :
 Les hooks privilégient le déterminisme (shell pur).
 Les hooks avec dépendances LLM sont acceptés mais doivent être
 explicitement marqués comme tels dans leur META.md.
+
+Chaque hook vit dans son propre dossier :
+
+```
+hooks/
+└── nom_du_hook/
+    ├── hook.sh
+    └── META.md
+```
+
+Les hooks officiels Anthropic sont dans `hooks/anthropics/nom_du_hook/`.
+
+## Conventions META.md
+
+Chaque hook doit avoir un `META.md` avec :
+- Source (auteur, lien)
+- Contexte d'usage
+- Événement + matcher
+- Exemple de configuration `settings.json`
+- Environnement testé (outil uniquement, pas l'OS)
