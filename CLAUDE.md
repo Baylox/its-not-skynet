@@ -71,6 +71,8 @@ skills/
 
 → Voir [`configs/README.md`](configs/README.md)
 
+Les configs sont des points de départ — à copier et personnaliser avant d'appliquer.
+
 Chaque config vit dans son propre dossier :
 
 ```
