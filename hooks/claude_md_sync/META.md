@@ -8,6 +8,7 @@
 Après chaque `git commit`, vérifie que `CLAUDE.md` et les `README.md` des dossiers `hooks/`, `skills/`, `configs/` sont bien synchronisés avec les fichiers ajoutés ou modifiés.
 
 Évite d'oublier de documenter une nouvelle ressource après l'avoir committée.
+Ne se déclenche que sur les fichiers **nouvellement ajoutés** (`--diff-filter=A`) — les modifications de fichiers existants ne déclenchent pas d'alerte.
 
 ## ⚠️ Coût en tokens
 

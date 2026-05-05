@@ -9,15 +9,17 @@ Bloque toute tentative de commit contenant `Co-Authored-By` dans le message.
 Empêche Claude de s'auto-attribuer les commits.
 
 ## Événement
-- `PreToolUse` — matcher : `Bash`
+- `PostToolUse` — matcher : `Bash`, filtre : `Bash(git commit *)`
+- Inspecte le message du commit **après** qu'il a été enregistré — plus fiable que PreToolUse qui analyse la commande brute.
 
 ## Configuration settings.json
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "PostToolUse": [
       {
         "matcher": "Bash",
+        "if": "Bash(git commit *)",
         "hooks": [
           {
             "type": "command",
