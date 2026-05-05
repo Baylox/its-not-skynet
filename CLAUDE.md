@@ -38,54 +38,6 @@ Les dossiers sont en `kebab-case` pour les skills, `snake_case` pour les hooks e
 
 ## Hooks
 
-→ Voir [`hooks/README.md`](hooks/README.md)
-
 Les hooks privilégient le déterminisme (shell pur).
-Les hooks avec dépendances LLM (`type: prompt` ou `type: agent`) sont acceptés mais doivent être explicitement marqués comme tels dans leur META.md — ils consomment des tokens à chaque déclenchement.
-
-Chaque hook vit dans son propre dossier :
-
-```
-hooks/
-└── nom_du_hook/
-    ├── hook.sh
-    └── META.md
-```
-
-## Skills
-
-→ Voir [`skills/README.md`](skills/README.md)
-
-Chaque skill vit dans son propre dossier :
-
-```
-skills/
-└── contributeur/
-    └── nom-du-skill/
-        ├── SKILL.md
-        └── META.md
-```
-
-## Configs
-
-→ Voir [`configs/README.md`](configs/README.md)
-
-Les configs sont des points de départ — à copier et personnaliser avant d'appliquer.
-
-Chaque config vit dans son propre dossier :
-
-```
-configs/
-└── contributeur/
-    └── nom-de-la-config/
-        ├── config.json
-        └── META.md
-```
-
-## Conventions META.md
-
-Chaque ressource doit avoir un `META.md` avec :
-- Source (auteur, lien)
-- Contexte d'usage
-- Instructions d'installation / configuration
-- Environnement testé (outil uniquement, pas l'OS)
+Les hooks avec dépendances LLM sont acceptés mais doivent être
+explicitement marqués comme tels dans leur META.md.
