@@ -1,15 +1,48 @@
 # skills/
 
-Skills Claude Code réutilisables.
+Skills Claude Code réutilisables (slash commands, agents spécialisés).
 
-## Où les copier
+→ Retour au [CLAUDE.md](../CLAUDE.md)
 
-Dans le projet cible :
+## Structure
 
 ```
-.claude/skills/<nom_du_skill>.md
+skills/
+├── anthropics/        # Skills officiels Anthropic
+└── contributeur/      # Skills personnels/communautaires
+    └── nom-du-skill/
+        ├── SKILL.md
+        └── META.md
 ```
 
-## Convention
+## Skills disponibles
 
-Fichiers en `snake_case`, préfixés par domaine — ex: `symfony_code_review.md`, `git_commit_review.md`.
+### [anthropics/](anthropics/README.md)
+
+| Skill | Description |
+|-------|-------------|
+| [algorithmic-art](anthropics/algorithmic-art/META.md) | Art génératif via p5.js |
+| [brand-guidelines](anthropics/brand-guidelines/META.md) | Respect de charte graphique |
+| [canvas-design](anthropics/canvas-design/META.md) | Design sur canvas |
+| [claude-api](anthropics/claude-api/META.md) | Intégration API Claude |
+| [doc-coauthoring](anthropics/doc-coauthoring/META.md) | Co-rédaction de documents |
+| [docx](anthropics/docx/META.md) | Génération de fichiers Word |
+| [frontend-design](anthropics/frontend-design/META.md) | Design frontend |
+| [internal-comms](anthropics/internal-comms/META.md) | Communications internes |
+| [mcp-builder](anthropics/mcp-builder/META.md) | Construction de serveurs MCP |
+| [pdf](anthropics/pdf/META.md) | Génération de PDF |
+| [pptx](anthropics/pptx/META.md) | Génération de présentations PowerPoint |
+| [skill-creator](anthropics/skill-creator/META.md) | Création de skills |
+| [slack-gif-creator](anthropics/slack-gif-creator/META.md) | Création de GIFs Slack |
+| [theme-factory](anthropics/theme-factory/META.md) | Génération de thèmes |
+| [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
+| [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
+| [xlsx](anthropics/xlsx/META.md) | Génération de fichiers Excel |
+
+## Comment utiliser un skill
+
+Copier le `SKILL.md` dans le projet cible :
+
+```
+.claude/skills/nom-du-skill.md
+```

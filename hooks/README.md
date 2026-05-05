@@ -1,19 +1,51 @@
 # hooks/
 
-Scripts shell déterministes — aucune logique IA.
+Scripts shell déterministes exécutés par Claude Code à des événements précis.
 
-## Où les utiliser
+→ Retour au [CLAUDE.md](../CLAUDE.md)
 
-Les hooks ne se copient pas directement : ils sont **référencés** dans le `settings.json` du projet cible.
+## Structure
+
+```
+hooks/
+├── anthropics/        # Hooks officiels Anthropic
+└── nom_du_hook/       # Hooks personnels/communautaires
+    ├── hook.sh
+    └── META.md
+```
+
+## Hooks disponibles
+
+### [anthropics/](anthropics/README.md)
+
+| Hook | Événement | Description |
+|------|-----------|-------------|
+| [notification_desktop](anthropics/notification_desktop/META.md) | `Notification` | Alerte desktop cross-platform |
+| [pre_tool_use_protect_files](anthropics/pre_tool_use_protect_files/META.md) | `PreToolUse` | Bloque l'édition de fichiers sensibles |
+| [pre_tool_use_block_rm_rf](anthropics/pre_tool_use_block_rm_rf/META.md) | `PreToolUse` | Bloque les `rm -rf` |
+| [post_tool_use_log_bash](anthropics/post_tool_use_log_bash/META.md) | `PostToolUse` | Journalise les commandes Bash |
+| [post_tool_use_prettier](anthropics/post_tool_use_prettier/META.md) | `PostToolUse` | Auto-formate avec Prettier |
+| [session_start_reinject_context](anthropics/session_start_reinject_context/META.md) | `SessionStart` | Réinjecte le contexte après compaction |
+
+### Personnels
+
+| Hook | Événement | Description |
+|------|-----------|-------------|
+| [no_coauthor](no_coauthor/META.md) | `PreToolUse` | Bloque les `Co-Authored-By` dans les commits |
+
+## Comment utiliser un hook
+
+Référencer le script dans `.claude/settings.json` :
 
 ```json
 {
   "hooks": {
-    "PreToolUse": [{ "command": "bash /chemin/vers/hook.sh" }]
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "bash /chemin/vers/hook.sh" }]
+      }
+    ]
   }
 }
 ```
-
-## Convention
-
-Fichiers en `snake_case`, préfixés par événement — ex: `pre_tool_use_lint.sh`, `post_tool_use_notify.sh`.

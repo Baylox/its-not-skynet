@@ -2,37 +2,17 @@
 
 Hooks officiels tirés de la documentation Anthropic Claude Code.
 
+→ Retour à [hooks/](../README.md)
+
 Source : https://docs.anthropic.com/fr/docs/claude-code/hooks
 
-## Contenu
+## Hooks disponibles
 
-| Fichier | Événement | Description |
+| Dossier | Événement | Description |
 |---------|-----------|-------------|
-| `notification_desktop.sh` | Notification | Notification Windows/Linux/macOS |
-| `pre_tool_use_protect_files.sh` | PreToolUse | Bloque l'édition de fichiers protégés |
-| `pre_tool_use_block_rm_rf.sh` | PreToolUse | Bloque les `rm -rf` |
-| `post_tool_use_log_bash.sh` | PostToolUse | Journalise toutes les commandes Bash |
-| `post_tool_use_prettier.sh` | PostToolUse | Auto-formate après écriture |
-| `session_start_reinject_context.sh` | SessionStart | Réinjecte le contexte après compaction |
-
-## Usage
-
-Référencer dans `.claude/settings.json` :
-
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /chemin/vers/pre_tool_use_protect_files.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+| [notification_desktop/](notification_desktop/META.md) | `Notification` | Alerte desktop cross-platform (macOS, Linux, Windows) |
+| [pre_tool_use_protect_files/](pre_tool_use_protect_files/META.md) | `PreToolUse` | Bloque l'édition de fichiers sensibles |
+| [pre_tool_use_block_rm_rf/](pre_tool_use_block_rm_rf/META.md) | `PreToolUse` | Bloque les `rm -rf` |
+| [post_tool_use_log_bash/](post_tool_use_log_bash/META.md) | `PostToolUse` | Journalise les commandes Bash |
+| [post_tool_use_prettier/](post_tool_use_prettier/META.md) | `PostToolUse` | Auto-formate avec Prettier |
+| [session_start_reinject_context/](session_start_reinject_context/META.md) | `SessionStart` | Réinjecte le contexte après compaction |
