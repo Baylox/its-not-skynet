@@ -27,4 +27,9 @@ Chaque `META.md` indique la destination cible. Exemples courants :
 
 ## Configs disponibles
 
-Aucune config pour le moment.
+### anthropics/
+
+| Config | Description |
+|--------|-------------|
+| [global-base](anthropics/global-base/META.md) | `~/.claude/settings.json` — base personnelle (modèle, langue, protection fichiers sensibles) |
+| [project-base](anthropics/project-base/META.md) | `.claude/settings.json` — base projet partagée (permissions git équipe) |
