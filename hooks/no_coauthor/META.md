@@ -21,7 +21,7 @@ Empêche Claude de s'auto-attribuer les commits.
         "hooks": [
           {
             "type": "command",
-            "command": "bash /chemin/vers/hooks/no_coauthor/hook.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/no_coauthor/hook.sh\""
           }
         ]
       }

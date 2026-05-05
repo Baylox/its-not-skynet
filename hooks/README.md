@@ -1,22 +1,32 @@
 # hooks/
 
-Scripts shell déterministes exécutés par Claude Code à des événements précis.
+Scripts exécutés par Claude Code à des événements précis du cycle de vie.
 
 → Retour au [CLAUDE.md](../CLAUDE.md)
+
+## Démarrage rapide
+
+1. Choisir un hook dans la liste ci-dessous
+2. Lire son `META.md` pour comprendre ce qu'il fait
+3. Copier le bloc `settings.json` fourni dans le META dans votre `~/.claude/settings.json` ou `.claude/settings.json`
+4. Remplacer `/chemin/vers/` par `$CLAUDE_PROJECT_DIR/hooks/` — cette variable est exposée nativement par Claude Code
 
 ## Structure
 
 ```
 hooks/
 ├── anthropics/        # Hooks officiels Anthropic
+│   └── nom_du_hook/
+│       ├── hook.sh
+│       └── META.md
 └── nom_du_hook/       # Hooks personnels/communautaires
-    ├── hook.sh
+    ├── hook.sh        # ou hook.json pour les hooks type prompt
     └── META.md
 ```
 
 ## Hooks disponibles
 
-### [anthropics/](anthropics/README.md)
+### [anthropics/](anthropics/README.md) — Officiels Anthropic
 
 | Hook | Événement | Description |
 |------|-----------|-------------|
@@ -27,16 +37,16 @@ hooks/
 | [post_tool_use_prettier](anthropics/post_tool_use_prettier/META.md) | `PostToolUse` | Auto-formate avec Prettier |
 | [session_start_reinject_context](anthropics/session_start_reinject_context/META.md) | `SessionStart` | Réinjecte le contexte après compaction |
 
-### Personnels
+### Personnels — Baylo
 
-| Hook | Événement | Description |
-|------|-----------|-------------|
-| [no_coauthor](no_coauthor/META.md) | `PreToolUse` | Bloque les `Co-Authored-By` dans les commits |
-| [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | Vérifie la cohérence de CLAUDE.md après chaque commit — version shell (zéro token) et version prompt (⚠️ coûte des tokens) |
+| Hook | Événement | Type | Description |
+|------|-----------|------|-------------|
+| [no_coauthor](no_coauthor/META.md) | `PreToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
+| [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
 
-## Comment utiliser un hook
+> `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
 
-Référencer le script dans `.claude/settings.json` :
+## Exemple d'activation
 
 ```json
 {
@@ -44,9 +54,16 @@ Référencer le script dans `.claude/settings.json` :
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "hooks": [{ "type": "command", "command": "bash /chemin/vers/hook.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/no_coauthor/hook.sh\""
+          }
+        ]
       }
     ]
   }
 }
 ```
+
+`$CLAUDE_PROJECT_DIR` est une variable native de Claude Code — aucun `.env` requis.
