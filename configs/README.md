@@ -1,17 +1,37 @@
 # configs/
 
-Exemples de configurations validées : `settings.json`, `.mcp.json`, configs Ollama, etc.
+Fichiers de configuration validés et copiables pour les outils CLI/IA.
 
-## Où les copier
+→ Retour au [CLAUDE.md](../CLAUDE.md)
 
-Selon le type de config :
+## Structure
 
-| Fichier | Destination cible |
-|---|---|
-| `settings.json` | `.claude/settings.json` du projet |
+```
+configs/
+├── anthropics/        # Configs officielles Anthropic
+└── contributeur/      # Configs personnelles/communautaires
+    └── nom-de-la-config/
+        ├── config.json   (ou settings.json, .mcp.json, etc.)
+        └── META.md
+```
+
+## Comment utiliser une config
+
+Les configs sont des points de départ — copiez, adaptez et personnalisez à votre convenance avant de les appliquer.
+
+Chaque `META.md` indique la destination cible. Exemples courants :
+
+| Type | Destination |
+|------|-------------|
+| `settings.json` | `~/.claude/settings.json` (global) ou `.claude/settings.json` (projet) |
 | `.mcp.json` | racine du projet |
-| config Ollama | selon l'OS (`~/.ollama/`) |
+| Config Ollama | selon la doc Ollama |
 
-## Convention
+## Configs disponibles
 
-Fichiers en `snake_case`, préfixés par outil — ex: `mcp_filesystem_config.json`, `ollama_mistral_config.json`.
+### anthropics/
+
+| Config | Description |
+|--------|-------------|
+| [global-base](anthropics/global-base/META.md) | `~/.claude/settings.json` — base personnelle (modèle, langue, protection fichiers sensibles) |
+| [project-base](anthropics/project-base/META.md) | `.claude/settings.json` — base projet partagée (permissions git équipe) |

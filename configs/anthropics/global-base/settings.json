@@ -1,0 +1,17 @@
+{
+  "model": "claude-sonnet-4-6",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "language": "français",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)",
+      "Read(./.aws/credentials)"
+    ]
+  }
+}

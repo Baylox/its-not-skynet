@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "if": "Bash(git commit *)",
+        "hooks": [
+          {
+            "type": "prompt",
+            "statusMessage": "Vérification de la cohérence du CLAUDE.md...",
+            "prompt": "Des fichiers ont été commités. Si des ressources ont été ajoutées, déplacées ou supprimées dans hooks/, skills/, ou configs/, vérifie que CLAUDE.md et le README.md du dossier concerné reflètent bien ces changements. Si ce n'est pas le cas, réponds avec {\"continue\": false, \"stopReason\": \"CLAUDE.md ou un README est désynchronisé. Pensez à les mettre à jour avant de continuer.\"}. Sinon réponds avec {\"continue\": true}."
+          }
+        ]
+      }
+    ]
+  }
+}

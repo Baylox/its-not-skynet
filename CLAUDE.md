@@ -22,13 +22,19 @@ Aucune ressource importée sans test personnel n'est acceptée.
 - Plugins marketplace non vérifiés
 - Tout ce qui nécessite un **réseau non maîtrisé à l'exécution**
 
+## Structure
+
+| Dossier | Contenu | Détails |
+|---------|---------|---------|
+| [`hooks/`](hooks/README.md) | Scripts shell exécutés par Claude Code | Événements PreToolUse, PostToolUse, etc. |
+| [`skills/`](skills/README.md) | Skills Claude Code réutilisables | Slash commands, agents spécialisés |
+| [`configs/`](configs/README.md) | Fichiers de configuration copiables | settings.json, .mcp.json, Ollama |
+| `architecture/` | Schémas et décisions d'architecture | |
+| `subagents/` | Définitions de subagents | |
+
 ## Conventions de nommage
 
-Les fichiers sont en `snake_case`, préfixés par domaine :
-
-- `symfony_code_review.md`
-- `mcp_server_setup.md`
-- `ollama_local_config.json`
+Les dossiers sont en `kebab-case` pour les skills, `snake_case` pour les hooks et configs.
 
 ## Hooks
 
