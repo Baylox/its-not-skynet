@@ -47,6 +47,20 @@ hooks/
 
 Les hooks officiels Anthropic sont dans `hooks/anthropics/nom_du_hook/`.
 
+## Skills
+
+Chaque skill vit dans son propre dossier :
+
+```
+skills/
+└── contributeur/
+    └── nom-du-skill/
+        ├── SKILL.md
+        └── META.md
+```
+
+Les skills officiels Anthropic sont dans `skills/anthropics/nom-du-skill/`.
+
 ## Conventions META.md
 
 Chaque hook doit avoir un `META.md` avec :
