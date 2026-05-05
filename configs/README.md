@@ -17,6 +17,8 @@ configs/
 
 ## Comment utiliser une config
 
+Les configs sont des points de départ — copiez, adaptez et personnalisez à votre convenance avant de les appliquer.
+
 Chaque `META.md` indique la destination cible. Exemples courants :
 
 | Type | Destination |
