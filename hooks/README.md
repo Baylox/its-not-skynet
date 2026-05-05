@@ -32,7 +32,7 @@ hooks/
 | Hook | Événement | Description |
 |------|-----------|-------------|
 | [no_coauthor](no_coauthor/META.md) | `PreToolUse` | Bloque les `Co-Authored-By` dans les commits |
-| [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | Vérifie la cohérence de CLAUDE.md après chaque commit ⚠️ coûte des tokens |
+| [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | Vérifie la cohérence de CLAUDE.md après chaque commit — version shell (zéro token) et version prompt (⚠️ coûte des tokens) |
 
 ## Comment utiliser un hook
 
