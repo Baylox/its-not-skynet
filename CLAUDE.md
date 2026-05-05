@@ -41,8 +41,7 @@ Les dossiers sont en `kebab-case` pour les skills, `snake_case` pour les hooks e
 → Voir [`hooks/README.md`](hooks/README.md)
 
 Les hooks privilégient le déterminisme (shell pur).
-Les hooks avec dépendances LLM sont acceptés mais doivent être
-explicitement marqués comme tels dans leur META.md.
+Les hooks avec dépendances LLM (`type: prompt` ou `type: agent`) sont acceptés mais doivent être explicitement marqués comme tels dans leur META.md — ils consomment des tokens à chaque déclenchement.
 
 Chaque hook vit dans son propre dossier :
 
