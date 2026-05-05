@@ -32,4 +32,3 @@ Empêche Claude de s'auto-attribuer les commits.
 
 ## Environnement testé
 - Outil : Claude Code
-- OS : Windows 11 (bash via Git Bash / WSL)
