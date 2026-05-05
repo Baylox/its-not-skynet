@@ -41,7 +41,7 @@ hooks/
 
 | Hook | Événement | Type | Description |
 |------|-----------|------|-------------|
-| [no_coauthor](no_coauthor/META.md) | `PreToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
+| [no_coauthor](no_coauthor/META.md) | `PostToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
 | [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
 
 > `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
