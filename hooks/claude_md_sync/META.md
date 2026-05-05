@@ -23,6 +23,31 @@ notamment dans les sessions à fort volume de commits.
 
 Fusionner le contenu de `hook.json` dans votre `settings.json` cible :
 
+### Version shell (recommandée — zéro token)
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "if": "Bash(git commit *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/claude_md_sync/hook_shell.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+`$CLAUDE_PROJECT_DIR` est exposé nativement par Claude Code — aucun `.env` requis.
+
+### Version prompt (alternative — coûte des tokens)
+
 ```json
 {
   "hooks": {
