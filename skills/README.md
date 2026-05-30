@@ -39,11 +39,12 @@ skills/
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
 | [xlsx](anthropics/xlsx/META.md) | Génération de fichiers Excel |
 
-### 404notfound/
+### 404notfood/
 
 | Skill | Description |
 |-------|-------------|
-| [laravel-php-review](404notfound/laravel-php-review/META.md) | Revue de code PHP/Laravel (sécurité, perfs N+1, conventions) |
+| [laravel-php-review](404notfood/laravel-php-review/META.md) | Revue de code PHP/Laravel (sécurité, perfs N+1, conventions) |
+| [seo-laravel](404notfood/seo-laravel/META.md) | SEO on-page Laravel/Blade : audit + implémentation (zéro réseau) |
 
 ## Comment utiliser un skill
 

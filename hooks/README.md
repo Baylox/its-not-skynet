@@ -46,6 +46,12 @@ hooks/
 
 > `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
 
+### Personnels — 404notfood
+
+| Hook | Événement | Type | Description |
+|------|-----------|------|-------------|
+| [pre_tool_use_block_secrets](404notfood/pre_tool_use_block_secrets/META.md) | `PreToolUse` | shell | Bloque l'écriture de secrets en dur et le commit de `.env` |
+
 ## Exemple d'activation
 
 ```json

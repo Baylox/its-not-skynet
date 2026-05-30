@@ -1,7 +1,7 @@
 # Meta — laravel-php-review
 
 ## Source
-- Auteur : 404notfound
+- Auteur : 404notfood
 - Repo : https://github.com/Baylox/its-not-skynet
 - Statut : **Créé par moi**
 
