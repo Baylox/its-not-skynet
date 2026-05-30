@@ -39,6 +39,12 @@ skills/
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
 | [xlsx](anthropics/xlsx/META.md) | Génération de fichiers Excel |
 
+### 404notfound/
+
+| Skill | Description |
+|-------|-------------|
+| [laravel-php-review](404notfound/laravel-php-review/META.md) | Revue de code PHP/Laravel (sécurité, perfs N+1, conventions) |
+
 ## Comment utiliser un skill
 
 Copier le `SKILL.md` dans le projet cible :
