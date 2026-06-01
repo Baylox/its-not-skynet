@@ -2,6 +2,11 @@ MIT License
 
 Copyright (c) 2026 Baylo
 
+This MIT license applies ONLY to the original resources of this repository
+(those authored by its contributors). It does NOT apply to any third-party
+content — in particular, nothing authored by Anthropic. See the "Third-party
+content" section below.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -22,12 +27,23 @@ SOFTWARE.
 
 ---
 
-Third-party content
+Third-party content (NOT covered by the MIT license above)
 
-This license applies to the original resources of this repository.
+The MIT license above covers exclusively the original work of this
+repository's contributors. It grants NO rights whatsoever over any
+third-party material.
 
-Resources located under any `anthropics/` directory (for example
-`skills/anthropics/` and `configs/anthropics/`) are imported from Anthropic's
-official repositories and remain governed by their original license. Refer to
-https://github.com/anthropics/skills for the applicable terms. Their inclusion
-here does not place them under the MIT license above.
+In particular, any resource located under an `anthropics/` directory (for
+example `skills/anthropics/` and `configs/anthropics/`) was authored by
+Anthropic and is imported from Anthropic's official repositories. Such
+material:
+
+  - is NOT licensed under the MIT license above;
+  - remains the exclusive property of Anthropic, PBC;
+  - remains governed solely by Anthropic's own license terms, distributed
+    in the `LICENSE.txt` file within each corresponding folder (Apache-2.0
+    where present) and at https://github.com/anthropics/skills.
+
+The contributors of this repository claim no ownership of, and grant no
+rights to, any Anthropic material. Inclusion here is for reference only and
+does not modify or supersede Anthropic's terms.
