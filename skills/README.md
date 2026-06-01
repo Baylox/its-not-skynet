@@ -17,7 +17,9 @@ skills/
 
 ## Skills disponibles
 
-### [anthropics/](anthropics/README.md)
+### anthropics/
+
+> **Licence :** ces skills sont l'œuvre d'Anthropic, **non couverts par la licence MIT** du repo. Ils restent régis par leurs propres termes (`LICENSE.txt` Apache-2.0 dans chaque dossier). Voir la section *Third-party content* du [LICENSE](../LICENSE).
 
 | Skill | Description |
 |-------|-------------|
@@ -26,18 +28,14 @@ skills/
 | [canvas-design](anthropics/canvas-design/META.md) | Design sur canvas |
 | [claude-api](anthropics/claude-api/META.md) | Intégration API Claude |
 | [doc-coauthoring](anthropics/doc-coauthoring/META.md) | Co-rédaction de documents |
-| [docx](anthropics/docx/META.md) | Génération de fichiers Word |
 | [frontend-design](anthropics/frontend-design/META.md) | Design frontend |
 | [internal-comms](anthropics/internal-comms/META.md) | Communications internes |
 | [mcp-builder](anthropics/mcp-builder/META.md) | Construction de serveurs MCP |
-| [pdf](anthropics/pdf/META.md) | Génération de PDF |
-| [pptx](anthropics/pptx/META.md) | Génération de présentations PowerPoint |
 | [skill-creator](anthropics/skill-creator/META.md) | Création de skills |
 | [slack-gif-creator](anthropics/slack-gif-creator/META.md) | Création de GIFs Slack |
 | [theme-factory](anthropics/theme-factory/META.md) | Génération de thèmes |
 | [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
-| [xlsx](anthropics/xlsx/META.md) | Génération de fichiers Excel |
 
 ### 404notfood/
 

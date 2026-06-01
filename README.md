@@ -98,6 +98,12 @@ Pas envie de passer par Claude ? La voie classique fonctionne tout aussi bien :
 
 Tout est détaillé dans **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
+## Licence
+
+Le travail original des contributeurs est sous licence **[MIT](LICENSE)**.
+
+⚠️ **Le MIT ne couvre AUCUN contenu tiers.** En particulier, les ressources sous `anthropics/` sont l'œuvre d'Anthropic, restent leur propriété exclusive et sont régies uniquement par leurs propres termes (`LICENSE.txt` Apache-2.0 dans chaque dossier). Détails dans la section *Third-party content* du [LICENSE](LICENSE).
+
 ## En savoir plus
 
 - **[CLAUDE.md](CLAUDE.md)** — contexte projet complet, lu automatiquement par Claude Code
