@@ -36,13 +36,11 @@ skills/
 | [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
 
-### contributeur/
-
-> ⚠️ Ces ressources ont un pseudo générique — l'auteur n'a pas encore réclamé sa contribution. Voir le META.md pour le détail.
+### IGSparkew/
 
 | Skill | Description |
 |-------|-------------|
-| [interface-architecture](contributeur/interface-architecture/META.md) | Inversion de dépendance OOP : interfaces/traits systématiques (Java, TS, C#, PHP, Rust) |
+| [interface-architecture](IGSparkew/interface-architecture/META.md) | Inversion de dépendance OOP : interfaces/traits systématiques (Java, TS, C#, PHP, Rust) |
 
 ### 404notfood/
 

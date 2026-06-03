@@ -1,7 +1,7 @@
 # Meta — interface-architecture
 
 ## Source
-- Auteur : ? (pseudo manquant — dossier `contributeur/` à renommer)
+- Auteur : IGSparkew
 - Statut : **draft**
 
 ## Contexte d'usage
