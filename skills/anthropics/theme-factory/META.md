@@ -9,4 +9,4 @@ Applique un thème visuel (couleurs + polices) à n'importe quel artifact : slid
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

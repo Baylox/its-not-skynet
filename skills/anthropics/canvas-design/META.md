@@ -9,4 +9,4 @@ Génère des créations visuelles (posters, affiches, art) en .png ou .pdf via u
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

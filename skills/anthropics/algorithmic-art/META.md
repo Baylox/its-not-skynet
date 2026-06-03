@@ -9,4 +9,4 @@ Crée de l'art génératif interactif via p5.js avec randomness seedée. S'intè
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

@@ -9,4 +9,4 @@ Construit des artifacts HTML complexes (React + Tailwind + shadcn/ui) bundlés e
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

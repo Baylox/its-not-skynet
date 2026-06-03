@@ -9,4 +9,4 @@ Applique les couleurs et typographies officielles Anthropic à tout artifact (sl
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

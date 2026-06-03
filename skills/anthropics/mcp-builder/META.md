@@ -9,4 +9,4 @@ Guide complet pour créer des serveurs MCP en TypeScript (recommandé) ou Python
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor
