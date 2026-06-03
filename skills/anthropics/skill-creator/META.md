@@ -9,4 +9,4 @@ Aide à créer, modifier et évaluer des skills Claude Code. Gère le cycle comp
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

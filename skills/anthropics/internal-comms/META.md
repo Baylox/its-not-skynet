@@ -9,4 +9,4 @@ Rédige des communications internes (3P updates, newsletters, FAQs, incident rep
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

@@ -9,4 +9,4 @@ Teste des applications web locales via Playwright (Python). Couvre la découvert
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

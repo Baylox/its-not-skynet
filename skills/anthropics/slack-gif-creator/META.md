@@ -9,4 +9,4 @@ Crée des GIFs animés optimisés pour Slack (contraintes de taille, dimensions,
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor

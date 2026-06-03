@@ -9,4 +9,4 @@ Aide à construire, déboguer et optimiser des apps utilisant l'Anthropic SDK. C
 
 ## Environnement testé
 - Outil : Claude Code
-- Compatibilité déclarée : Claude Code, Codex, Gemini CLI, Cursor
+- Compatibilité déclarée : Claude Code, Codex, Antigravity CLI, Cursor
