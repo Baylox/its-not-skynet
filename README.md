@@ -31,7 +31,7 @@ C'est un catalogue de confiance pour quiconque travaille avec **Claude Code, MCP
 | [`skills/`](skills/README.md) | Skills réutilisables : slash commands et agents spécialisés |
 | [`configs/`](configs/README.md) | Fichiers de configuration prêts à copier — `settings.json`, `.mcp.json`, Ollama… |
 | [`subagents/`](subagents/) | Définitions de subagents spécialisés |
-| [`architecture/`](architecture/overview.md) | Schémas et décisions d'architecture du projet |
+| [`architecture/`](architecture/README.md) | Schémas et décisions d'architecture du projet |
 
 Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a créée, ce qu'elle fait, comment l'installer, sur quel environnement elle a été testée.
 
