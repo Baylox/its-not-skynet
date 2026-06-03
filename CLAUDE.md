@@ -51,6 +51,8 @@ Le `META.md` est le point d'entrée unique pour comprendre et installer une ress
 Pour trouver une ressource : parcourir `hooks/`, `skills/`, ou `configs/` → lire le `META.md` du dossier qui t'intéresse.
 Pour contribuer : voir [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+Pour lister toutes les ressources disponibles : `find . -maxdepth 4 -name "META.md" | sort`
+
 ## Mode contributeur assisté
 
 Quand un contributeur décrit une ressource à créer (en langage naturel ou via un fichier MD), Claude génère la structure complète sans intervention manuelle.
