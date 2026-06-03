@@ -38,12 +38,12 @@ hooks/
 | [post_tool_use_prettier](anthropics/post_tool_use_prettier/META.md) | `PostToolUse` | Auto-formate avec Prettier |
 | [session_start_reinject_context](anthropics/session_start_reinject_context/META.md) | `SessionStart` | Réinjecte le contexte après compaction |
 
-### Personnels — Baylo
+### Personnels — Baylox
 
 | Hook | Événement | Type | Description |
 |------|-----------|------|-------------|
-| [no_coauthor](baylo/no_coauthor/META.md) | `PreToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
-| [claude_md_sync](baylo/claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
+| [no_coauthor](Baylox/no_coauthor/META.md) | `PreToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
+| [claude_md_sync](Baylox/claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
 
 > `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
 
@@ -77,7 +77,7 @@ hooks/
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/baylo/no_coauthor/hook.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/Baylox/no_coauthor/hook.sh\""
           }
         ]
       }

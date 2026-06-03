@@ -50,7 +50,7 @@ Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a cr√
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/baylo/no_coauthor/hook.sh\"" }
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/Baylox/no_coauthor/hook.sh\"" }
         ]
       }
     ]

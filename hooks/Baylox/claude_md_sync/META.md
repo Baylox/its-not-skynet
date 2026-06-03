@@ -1,7 +1,7 @@
 # Meta — claude_md_sync
 
 ## Source
-- Auteur : Baylo
+- Auteur : Baylox
 - Statut : **stable**
 
 ## Contexte d'usage
@@ -36,7 +36,7 @@ Fusionner le contenu de `hook.json` dans votre `settings.json` cible :
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/baylo/claude_md_sync/hook_shell.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/Baylox/claude_md_sync/hook_shell.sh\""
           }
         ]
       }
