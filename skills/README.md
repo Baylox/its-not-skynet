@@ -9,7 +9,7 @@ Skills Claude Code réutilisables (slash commands, agents spécialisés).
 ```
 skills/
 ├── anthropics/        # Skills officiels Anthropic
-└── contributeur/      # Skills personnels/communautaires
+└── <pseudo>/          # Skills personnels/communautaires
     └── nom-du-skill/
         ├── SKILL.md
         └── META.md
@@ -35,6 +35,14 @@ skills/
 | [theme-factory](anthropics/theme-factory/META.md) | Génération de thèmes |
 | [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
+
+### contributeur/
+
+> ⚠️ Ces ressources ont un pseudo générique — l'auteur n'a pas encore réclamé sa contribution. Voir le META.md pour le détail.
+
+| Skill | Description |
+|-------|-------------|
+| [interface-architecture](contributeur/interface-architecture/META.md) | Inversion de dépendance OOP : interfaces/traits systématiques (Java, TS, C#, PHP, Rust) |
 
 ### 404notfood/
 

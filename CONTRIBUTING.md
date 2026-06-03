@@ -26,6 +26,7 @@ L'absence de statut est un motif de rejet. Toute ressource soumise via PR commen
 | Hook | `hooks/<votre-pseudo>/nom_du_hook/` | → [hooks/README.md](hooks/README.md) |
 | Skill | `skills/<votre-pseudo>/nom-du-skill/` | → [skills/README.md](skills/README.md) |
 | Config | `configs/<votre-pseudo>/nom-de-la-config/` | → [configs/README.md](configs/README.md) |
+| Subagent | `subagents/<votre-pseudo>/nom_du_subagent/` | → [subagents/README.md](subagents/README.md) |
 
 ## Template META.md
 
