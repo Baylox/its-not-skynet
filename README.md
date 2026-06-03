@@ -2,48 +2,45 @@
 
 # its-not-skynet
 
-**Des ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent.**
+**Validated CLI/AI resources. No magic. No uncontrolled network. Just tools that work.**
 
-[![not skynet](https://img.shields.io/badge/not-skynet-success)](https://github.com/its-not-skynet)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-7C3AED)](https://claude.ai/code)
-[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)](CONTRIBUTING.md)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-[Démarrage](#démarrage-rapide) · [Contribuer avec Claude](#contribuer-en-langage-naturel) · [Contenu](#ce-quon-y-trouve) · [Philosophie](#pourquoi-ce-repo)
+[Quick start](#quick-start) · [Contribute with an agent](#contribute-with-an-agent) · [Contents](#contents) · [Philosophy](#why-this-repo)
+
+[Français](docs/README.fr.md)
 
 </div>
 
 ---
 
-## Pourquoi ce repo
+## Why this repo
 
-L'écosystème des outils IA en CLI déborde de configs copiées-collées, de hooks jamais testés et de skills qui « marchaient sur la machine de quelqu'un ». **its-not-skynet** prend le contre-pied : ici, chaque ressource a été **créée ou testée en conditions réelles** par son auteur, qui en assume la pertinence.
+The CLI/AI ecosystem is full of copy-pasted configs, untested hooks, and skills that "worked on someone's machine." **its-not-skynet** takes the opposite stance: every resource has been **created or tested in real conditions** by its author.
 
-> **Une seule règle, non négociable :** une ressource est soit **créée**, soit **explicitement validée** par son contributeur. Rien d'importé à l'aveugle. Rien qui dépende d'un réseau non maîtrisé à l'exécution.
+> **One rule, non-negotiable:** a resource is either **created** or **explicitly validated** by its contributor. Nothing imported blindly. Nothing that depends on an uncontrolled network at runtime.
 
-C'est un catalogue de confiance pour quiconque travaille avec **Claude Code, MCP, Ollama** et les outils IA en ligne de commande.
+A trust catalog for anyone working with CLI AI agents — Claude Code, Codex CLI, Antigravity CLI, MCP, Ollama, or any other tool.
 
-## Ce qu'on y trouve
+## Contents
 
-| Dossier | Description |
-|---------|-------------|
-| [`hooks/`](hooks/README.md) | Scripts déclenchés par Claude Code à des événements précis — `PreToolUse`, `PostToolUse`, `Notification`… |
-| [`skills/`](skills/README.md) | Skills réutilisables : slash commands et agents spécialisés |
-| [`configs/`](configs/README.md) | Fichiers de configuration prêts à copier — `settings.json`, `.mcp.json`, Ollama… |
-| [`subagents/`](subagents/) | Définitions de subagents spécialisés |
-| [`architecture/`](architecture/README.md) | Schémas et décisions d'architecture du projet |
+| Folder | Description |
+|--------|-------------|
+| [`hooks/`](hooks/README.md) | Shell scripts triggered by Claude Code — `PreToolUse`, `PostToolUse`, `Notification`… |
+| [`skills/`](skills/README.md) | Reusable skills: slash commands and specialized agents |
+| [`configs/`](configs/README.md) | Ready-to-copy config files — `settings.json`, `.mcp.json`, Ollama… |
+| [`subagents/`](subagents/) | Specialized subagent definitions |
+| [`architecture/`](architecture/README.md) | Architecture schemas and decisions |
 
-Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a créée, ce qu'elle fait, comment l'installer, sur quel environnement elle a été testée.
+Each resource has a **`META.md`**: author, status, usage, installation, tested environment.
 
-## Démarrage rapide
+## Quick start
 
-1. **Parcourez** le dossier qui vous intéresse — `hooks/`, `skills/` ou `configs/`.
-2. **Lisez le `META.md`** de la ressource pour comprendre ce qu'elle fait.
-3. **Copiez** le bloc d'installation fourni dans votre `settings.json` ou votre projet.
-4. C'est tout — aucune dépendance à auditer, aucun appel réseau surprise.
+1. Browse the folder you're interested in — `hooks/`, `skills/`, or `configs/`.
+2. Read the resource's `META.md`.
+3. Copy the installation block into your `settings.json` or project.
 
 ```jsonc
-// Exemple : activer un hook dans .claude/settings.json
+// Example: enable a hook in .claude/settings.json
 {
   "hooks": {
     "PreToolUse": [
@@ -58,61 +55,57 @@ Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a cr�
 }
 ```
 
-> `$CLAUDE_PROJECT_DIR` est exposée nativement par Claude Code — aucun `.env` requis.
+> `$CLAUDE_PROJECT_DIR` is exposed natively by Claude Code — no `.env` required.
 
-## Contribuer en langage naturel
+## Contribute with an agent
 
-Ce repo est **pensé pour être étendu depuis Claude Code lui-même.** Ouvrez-le dans une session Claude et décrivez la ressource que vous voulez :
+Open this repo in your CLI agent of choice and describe what you want:
 
-> *« Je veux un hook qui bloque les commits le vendredi »*
+> *"I want a hook that blocks commits on Fridays"*
 
-Claude lit le `CLAUDE.md` du projet, puis génère **la structure complète** en respectant les conventions du repo :
+The agent reads the project context file and generates the full structure following repo conventions:
 
 ```
-hooks/<votre-pseudo>/pre_tool_use_block_friday_commit/
-├── pre_tool_use_block_friday_commit.sh   # le script, prêt à l'emploi
-└── META.md                               # source, usage, installation
+hooks/<your-handle>/pre_tool_use_block_friday_commit/
+├── pre_tool_use_block_friday_commit.sh
+└── META.md
 ```
 
-Le garde-fou reste le même : les fichiers générés sont des **drafts**. Le statut du `META.md` reste `draft` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
+Each agent CLI has its own context file:
 
-**Vous gardez la main, Claude fait la plomberie.**
+| Agent | Context file |
+|-------|-------------|
+| Claude Code | [`CLAUDE.md`](CLAUDE.md) |
+| Codex CLI | [`AGENTS.md`](AGENTS.md) |
+| Antigravity CLI | [`ANTIGRAVITY.md`](ANTIGRAVITY.md) |
+
+Generated files are always **drafts**. `META.md` status stays `draft` until **you** have run the resource in real conditions. No commit before human validation — that's the repo's promise.
+
+**You stay in control, the agent does the plumbing.**
 
 ## Conventions
 
-| Élément | Règle |
-|--------|-------|
-| Dossiers de skills | `kebab-case` |
-| Dossiers de hooks / configs | `snake_case` |
-| Chemin d'une ressource | `<type>/<pseudo-contributeur>/<nom>/` |
-| Hooks | Déterminisme privilégié (shell pur). Toute dépendance LLM doit être déclarée dans le `META.md`. |
+| Element | Rule |
+|---------|------|
+| Skill folders | `kebab-case` |
+| Hook / config folders | `snake_case` |
+| Resource path | `<type>/<contributor-handle>/<name>/` |
+| Hooks | Pure shell preferred. Any LLM dependency must be declared in `META.md`. |
 
-## Contribuer à la main
+## Contribute manually
 
-Pas envie de passer par Claude ? La voie classique fonctionne tout aussi bien :
+Fork, create your `<type>/<handle>/<name>/` folder, add a `META.md` (template in [CONTRIBUTING.md](CONTRIBUTING.md)), test in real conditions, open a PR.
 
-1. Forkez et créez votre dossier `<type>/<pseudo>/<nom>/`.
-2. Ajoutez un `META.md` (template dans [CONTRIBUTING.md](CONTRIBUTING.md)) avec le statut approprié : **stable**, **beta**, ou **draft**.
-3. Testez en conditions réelles.
-4. Ouvrez une PR.
+## License
 
-Tout est détaillé dans **[CONTRIBUTING.md](CONTRIBUTING.md)**.
+Original contributor work is under **[MIT](LICENSE)**.
 
-## Licence
-
-Le travail original des contributeurs est sous licence **[MIT](LICENSE)**.
-
-⚠️ **Le MIT ne couvre AUCUN contenu tiers.** En particulier, les ressources sous `anthropics/` sont l'œuvre d'Anthropic, restent leur propriété exclusive et sont régies uniquement par leurs propres termes (`LICENSE.txt` Apache-2.0 dans chaque dossier). Détails dans la section *Third-party content* du [LICENSE](LICENSE).
-
-## En savoir plus
-
-- **[CLAUDE.md](CLAUDE.md)** — contexte projet complet, lu automatiquement par Claude Code
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** — guide de contribution et template `META.md`
+⚠️ **The MIT license does NOT cover third-party content.** Resources under `anthropics/` are Anthropic's exclusive property, governed solely by their own terms (`LICENSE.txt` Apache-2.0 in each folder). See the *Third-party content* section in [LICENSE](LICENSE).
 
 ---
 
 <div align="center">
 
-*Construit par des devs qui testent ce qu'ils partagent.*
+*Built by devs who test what they share.*
 
 </div>
