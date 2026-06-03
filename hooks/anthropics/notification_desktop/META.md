@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Envoie une notification desktop quand Claude Code a besoin d'attention (en attente d'input, tâche longue terminée, etc.).

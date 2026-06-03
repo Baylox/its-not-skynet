@@ -2,7 +2,7 @@
 
 ## Source
 - Auteur : Baylo
-- Statut : **Créé et validé par le contributeur**
+- Statut : **stable**
 
 ## Contexte d'usage
 Après chaque `git commit`, vérifie que `CLAUDE.md` et les `README.md` des dossiers `hooks/`, `skills/`, `configs/` sont bien synchronisés avec les fichiers ajoutés ou modifiés.
@@ -36,7 +36,7 @@ Fusionner le contenu de `hook.json` dans votre `settings.json` cible :
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/claude_md_sync/hook_shell.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/baylo/claude_md_sync/hook_shell.sh\""
           }
         ]
       }

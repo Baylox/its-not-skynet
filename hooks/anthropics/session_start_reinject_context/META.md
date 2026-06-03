@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Réinjecte des rappels de contexte projet dans la conversation après une compaction automatique.

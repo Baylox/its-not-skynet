@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Journalise chaque commande Bash exécutée par Claude dans `~/.claude/bash-command-log.txt` avec horodatage ISO.

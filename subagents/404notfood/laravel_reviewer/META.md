@@ -3,7 +3,7 @@
 ## Source
 - Auteur : 404notfood
 - Repo : https://github.com/Baylox/its-not-skynet
-- Statut : **Créé par moi**
+- Statut : **stable**
 
 ## Contexte d'usage
 Subagent de revue de code PHP / Laravel ciblé **Laravel 12 et 13**. À déléguer avant un merge ou sur une PR : il relit (ne réécrit pas) et signale les failles de sécurité (mass assignment, injection SQL, validation manquante, données exposées, secrets en dur), les problèmes de performance (N+1, pagination) et les écarts de convention propres à ces versions (skeleton slim / `bootstrap/app.php` en L12, attributs PHP / `Queue::route()` en L13). Chaque remarque est classée par sévérité et pointe fichier + ligne avec un correctif.

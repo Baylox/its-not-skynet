@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Repo : https://github.com/anthropics/skills
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Aide à créer, modifier et évaluer des skills Claude Code. Gère le cycle complet : draft → test cases → eval quantitatifs → itération. Utile pour bootstrapper un nouveau skill ou optimiser le triggering d'un skill existant.

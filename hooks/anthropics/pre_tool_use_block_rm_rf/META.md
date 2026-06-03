@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Bloque toute commande Bash contenant `rm -rf` (ou variantes `-fr`, `-rf`, etc.) avant son exécution.

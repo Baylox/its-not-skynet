@@ -27,7 +27,6 @@ skills/
 | [brand-guidelines](anthropics/brand-guidelines/META.md) | Respect de charte graphique |
 | [canvas-design](anthropics/canvas-design/META.md) | Design sur canvas |
 | [claude-api](anthropics/claude-api/META.md) | Intégration API Claude |
-| [doc-coauthoring](anthropics/doc-coauthoring/META.md) | Co-rédaction de documents |
 | [frontend-design](anthropics/frontend-design/META.md) | Design frontend |
 | [internal-comms](anthropics/internal-comms/META.md) | Communications internes |
 | [mcp-builder](anthropics/mcp-builder/META.md) | Construction de serveurs MCP |

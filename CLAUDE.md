@@ -69,12 +69,12 @@ Quand un contributeur décrit une ressource à créer (en langage naturel ou via
 | Skill | `SKILL.md` + `META.md` | `kebab-case` |
 | Config | fichier(s) config + `META.md` | `kebab-case` |
 
-4. Remplir le `META.md` en suivant le template dans [CONTRIBUTING.md](./CONTRIBUTING.md) — statut : `À tester — non validé`
+4. Remplir le `META.md` en suivant le template dans [CONTRIBUTING.md](./CONTRIBUTING.md) — statut : `draft`
 5. Mettre à jour le `README.md` du dossier parent avec la nouvelle entrée
 
 Pour les hooks, référence complète des événements et exit codes dans [hooks/README.md](./hooks/README.md).
 
-> **Important :** Les fichiers générés sont des drafts. Le statut du `META.md` doit rester `À tester — non validé` jusqu'à ce que le contributeur ait testé la ressource en conditions réelles. Le commit ne doit intervenir qu'après validation humaine et mise à jour du statut.
+> **Important :** Les fichiers générés sont des drafts. Le statut du `META.md` doit rester `draft` jusqu'à ce que le contributeur ait testé la ressource en conditions réelles. Le commit ne doit intervenir qu'après validation humaine et mise à jour du statut.
 
 ## Conventions de nommage
 

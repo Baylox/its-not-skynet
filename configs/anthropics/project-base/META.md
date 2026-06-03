@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/settings
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Configuration projet de base à committer dans `.claude/settings.json`. Définit les permissions git sûres pour toute l'équipe : les lectures courantes sont autorisées sans prompt, les opérations destructives demandent confirmation.

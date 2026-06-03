@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/settings
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Configuration globale de base pour Claude Code. Couvre le modèle, la langue, le niveau de réflexion et la protection minimale des fichiers sensibles. Point de départ recommandé avant toute personnalisation.

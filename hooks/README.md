@@ -19,9 +19,10 @@ hooks/
 │   └── nom_du_hook/
 │       ├── hook.sh
 │       └── META.md
-└── nom_du_hook/       # Hooks personnels/communautaires
-    ├── hook.sh        # ou hook.json pour les hooks type prompt
-    └── META.md
+└── <pseudo>/          # Hooks personnels/communautaires
+    └── nom_du_hook/
+        ├── hook.sh   # ou hook.json pour les hooks type prompt
+        └── META.md
 ```
 
 ## Hooks disponibles
@@ -41,8 +42,8 @@ hooks/
 
 | Hook | Événement | Type | Description |
 |------|-----------|------|-------------|
-| [no_coauthor](no_coauthor/META.md) | `PostToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
-| [claude_md_sync](claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
+| [no_coauthor](baylo/no_coauthor/META.md) | `PostToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
+| [claude_md_sync](baylo/claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
 
 > `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
 
@@ -76,7 +77,7 @@ hooks/
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/no_coauthor/hook.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/baylo/no_coauthor/hook.sh\""
           }
         ]
       }
