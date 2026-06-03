@@ -3,7 +3,7 @@
 ## Source
 - Auteur : 404notfood
 - Repo : https://github.com/Baylox/its-not-skynet
-- Statut : **Créé par moi**
+- Statut : **stable**
 
 ## Contexte d'usage
 Empêche deux erreurs classiques de sécurité avant qu'elles n'arrivent au dépôt :

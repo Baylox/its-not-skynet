@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Bloque toute tentative d'édition ou d'écriture sur des fichiers sensibles (`.env`, `package-lock.json`, `.git/`).

@@ -31,7 +31,7 @@ C'est un catalogue de confiance pour quiconque travaille avec **Claude Code, MCP
 | [`skills/`](skills/README.md) | Skills réutilisables : slash commands et agents spécialisés |
 | [`configs/`](configs/README.md) | Fichiers de configuration prêts à copier — `settings.json`, `.mcp.json`, Ollama… |
 | [`subagents/`](subagents/) | Définitions de subagents spécialisés |
-| [`architecture/`](architecture/overview.md) | Schémas et décisions d'architecture du projet |
+| [`architecture/`](architecture/README.md) | Schémas et décisions d'architecture du projet |
 
 Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a créée, ce qu'elle fait, comment l'installer, sur quel environnement elle a été testée.
 
@@ -50,7 +50,7 @@ Chaque ressource vit dans son propre dossier avec un **`META.md`** : qui l'a cr�
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/no_coauthor/hook.sh\"" }
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/hooks/Baylox/no_coauthor/hook.sh\"" }
         ]
       }
     ]
@@ -74,7 +74,7 @@ hooks/<votre-pseudo>/pre_tool_use_block_friday_commit/
 └── META.md                               # source, usage, installation
 ```
 
-Le garde-fou reste le même : les fichiers générés sont des **drafts**. Le statut du `META.md` reste `À tester — non validé` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
+Le garde-fou reste le même : les fichiers générés sont des **drafts**. Le statut du `META.md` reste `draft` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
 
 **Vous gardez la main, Claude fait la plomberie.**
 
@@ -92,7 +92,7 @@ Le garde-fou reste le même : les fichiers générés sont des **drafts**. Le st
 Pas envie de passer par Claude ? La voie classique fonctionne tout aussi bien :
 
 1. Forkez et créez votre dossier `<type>/<pseudo>/<nom>/`.
-2. Ajoutez un `META.md` (template dans [CONTRIBUTING.md](CONTRIBUTING.md)) avec votre déclaration : **Créé par moi** ou **Validé par moi**.
+2. Ajoutez un `META.md` (template dans [CONTRIBUTING.md](CONTRIBUTING.md)) avec le statut approprié : **stable**, **beta**, ou **draft**.
 3. Testez en conditions réelles.
 4. Ouvrez une PR.
 

@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Repo : https://github.com/anthropics/skills
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Génère des créations visuelles (posters, affiches, art) en .png ou .pdf via une philosophie de design. S'intègre dans des workflows créatifs où l'utilisateur veut produire des visuels statiques de qualité professionnelle.

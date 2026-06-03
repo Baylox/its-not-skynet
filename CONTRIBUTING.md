@@ -9,14 +9,15 @@ un prompt qui fonctionne vraiment, c'est suffisant.
 Toute personne peut soumettre une PR. Il n'y a pas de whitelist formelle —
 la crédibilité repose sur la transparence de la déclaration.
 
-## Déclaration obligatoire
+## Statut obligatoire
 
-Chaque ressource soumise doit préciser l'une des deux :
+Chaque ressource soumise doit déclarer l'un des trois statuts :
 
-- **Créé par moi** : vous êtes l'auteur original de la ressource
-- **Validé par moi** : vous l'avez testée en conditions réelles et en assumez la pertinence
+- **stable** : testé en conditions réelles, en usage régulier
+- **beta** : testé, mais usage limité ou edge cases non couverts
+- **draft** : généré ou écrit, pas encore testé en conditions réelles
 
-Les deux sont acceptés. L'absence de déclaration est un motif de rejet.
+L'absence de statut est un motif de rejet. Toute ressource soumise via PR commence au minimum en **beta**.
 
 ## Où placer votre ressource
 
@@ -25,6 +26,7 @@ Les deux sont acceptés. L'absence de déclaration est un motif de rejet.
 | Hook | `hooks/<votre-pseudo>/nom_du_hook/` | → [hooks/README.md](hooks/README.md) |
 | Skill | `skills/<votre-pseudo>/nom-du-skill/` | → [skills/README.md](skills/README.md) |
 | Config | `configs/<votre-pseudo>/nom-de-la-config/` | → [configs/README.md](configs/README.md) |
+| Subagent | `subagents/<votre-pseudo>/nom_du_subagent/` | → [subagents/README.md](subagents/README.md) |
 
 ## Template META.md
 
@@ -36,7 +38,7 @@ Chaque ressource doit inclure un `META.md`. Copiez-collez ce template et supprim
 ## Source
 - Auteur : Votre nom / alias
 - Repo : https://... (si applicable)
-- Statut : **Créé par moi** ou **Validé par moi**
+- Statut : **stable** / **beta** / **draft**
 
 ## Contexte d'usage
 Ce que fait la ressource concrètement, dans quel workflow elle s'intègre.

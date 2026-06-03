@@ -9,7 +9,7 @@ Skills Claude Code réutilisables (slash commands, agents spécialisés).
 ```
 skills/
 ├── anthropics/        # Skills officiels Anthropic
-└── contributeur/      # Skills personnels/communautaires
+└── <pseudo>/          # Skills personnels/communautaires
     └── nom-du-skill/
         ├── SKILL.md
         └── META.md
@@ -27,7 +27,6 @@ skills/
 | [brand-guidelines](anthropics/brand-guidelines/META.md) | Respect de charte graphique |
 | [canvas-design](anthropics/canvas-design/META.md) | Design sur canvas |
 | [claude-api](anthropics/claude-api/META.md) | Intégration API Claude |
-| [doc-coauthoring](anthropics/doc-coauthoring/META.md) | Co-rédaction de documents |
 | [frontend-design](anthropics/frontend-design/META.md) | Design frontend |
 | [internal-comms](anthropics/internal-comms/META.md) | Communications internes |
 | [mcp-builder](anthropics/mcp-builder/META.md) | Construction de serveurs MCP |
@@ -36,6 +35,12 @@ skills/
 | [theme-factory](anthropics/theme-factory/META.md) | Génération de thèmes |
 | [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
+
+### IGSparkew/
+
+| Skill | Description |
+|-------|-------------|
+| [interface-architecture](IGSparkew/interface-architecture/META.md) | Inversion de dépendance OOP : interfaces/traits systématiques (Java, TS, C#, PHP, Rust) |
 
 ### 404notfood/
 

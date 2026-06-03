@@ -1,8 +1,8 @@
 # Meta — no_coauthor
 
 ## Source
-- Auteur : Baylo
-- Statut : **Créé et validé par le contributeur**
+- Auteur : Baylox
+- Statut : **stable**
 
 ## Contexte d'usage
 Bloque toute tentative de commit contenant `Co-Authored-By` dans le message.
@@ -21,7 +21,7 @@ Empêche Claude de s'auto-attribuer les commits.
         "hooks": [
           {
             "type": "command",
-            "command": "bash /chemin/vers/hooks/no_coauthor/hook.sh"
+            "command": "bash /chemin/vers/hooks/Baylox/no_coauthor/hook.sh"
           }
         ]
       }

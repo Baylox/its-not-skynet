@@ -3,7 +3,6 @@
 ## Source
 - Auteur : Anthropic (officiel)
 - Repo : https://github.com/anthropics/skills
-- Statut : **Validé par source officielle**
 
 ## Contexte d'usage
 Génère des interfaces frontend production-grade avec une direction artistique forte et distinctive. Évite explicitement les esthétiques "AI slop" (Inter, gradients violets, layouts génériques). Pour composants web, landing pages, dashboards, artifacts HTML.
