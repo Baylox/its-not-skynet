@@ -46,8 +46,20 @@ Quand un contributeur décrit une ressource, Claude génère la structure compl�
 3. Remplir le `META.md` (template dans CONTRIBUTING.md) — statut : `draft`
 4. Mettre à jour le `README.md` du dossier parent
 
+Raccourci : `bash scripts/new.sh <type> <pseudo> <nom>` crée le dossier + `META.md` (draft) + stub à la bonne convention.
+
 Référence hooks (événements, exit codes) : `hooks/README.md`.
 Statut `draft` obligatoire jusqu'à test en conditions réelles. Commit uniquement après validation humaine.
+
+## Outillage (`scripts/`)
+
+Outils pur-shell, déterministes, zéro réseau (`jq` optionnel) :
+- `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis). Exit 0/1.
+- `scripts/build-index.sh` — génère `CATALOG.md` + `index.json` ; `--check` échoue si désynchro.
+- `scripts/find.sh` — recherche par mot-clé / type / statut / contributeur.
+- `scripts/new.sh` — scaffolder une ressource.
+
+Avant tout commit de ressource : `bash scripts/validate.sh` (doit sortir en 0) puis `bash scripts/build-index.sh`. La CI (`.github/workflows/validate.yml`) rejoue ces étapes sur chaque PR.
 
 ## Hooks
 

@@ -26,7 +26,10 @@ You are operating as an automated contributor for the `its-not-skynet` repositor
     1. Create the full structure.
     2. Populate `META.md` using the template in `CONTRIBUTING.md`.
     3. Update the parent `README.md` in the respective category folder.
-- **Verification**: If possible, use `run_shell_command` to validate the syntax of scripts (e.g., `bash -n script.sh`).
+- **Verification**: Use `run_shell_command` to run `bash scripts/validate.sh` (must exit 0) then `bash scripts/build-index.sh` to refresh `CATALOG.md` + `index.json`. CI replays both on every PR.
+
+### Tooling (`scripts/`)
+Pure-shell, deterministic, no network (`jq` optional): `scripts/new.sh <type> <handle> <name>` scaffolds a resource; `scripts/validate.sh` lints; `scripts/build-index.sh` regenerates the catalog (`--check` verifies sync); `scripts/find.sh` searches by keyword/type/status/contributor.
 
 ## Scope & Constraints
 - **Accepted**: Antigravity CLI, Claude Code, MCP, Ollama, AI CLI tools.

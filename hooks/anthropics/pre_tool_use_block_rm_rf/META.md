@@ -2,6 +2,7 @@
 
 ## Source
 - Auteur : Anthropic (officiel)
+- Statut : **stable**
 - Référence : https://docs.anthropic.com/fr/docs/claude-code/hooks
 
 ## Contexte d'usage

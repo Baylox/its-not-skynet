@@ -32,6 +32,8 @@ L'absence de statut est un motif de rejet. Toute ressource soumise via PR commen
 
 Chaque ressource doit inclure un `META.md`. Copiez-collez ce template et supprimez les sections inutiles :
 
+> Astuce : `bash scripts/new.sh <type> <pseudo> <nom>` génère le dossier, un `META.md` pré-rempli (statut `draft`) et le fichier stub à la bonne convention.
+
 ```markdown
 # Meta — nom-de-la-ressource
 
@@ -39,6 +41,10 @@ Chaque ressource doit inclure un `META.md`. Copiez-collez ce template et supprim
 - Auteur : Votre nom / alias
 - Repo : https://... (si applicable)
 - Statut : **stable** / **beta** / **draft**
+<!-- Champs optionnels (reconnus par scripts/build-index.sh et scripts/find.sh) : -->
+<!-- - Tags : sécurité, git -->
+<!-- - Dépendances : jq -->
+<!-- - Testé le : AAAA-MM-JJ -->
 
 ## Contexte d'usage
 Ce que fait la ressource concrètement, dans quel workflow elle s'intègre.
@@ -72,6 +78,10 @@ Ce que fait la ressource concrètement, dans quel workflow elle s'intègre.
 ## Environnement testé
 - Outil : Claude Code (ou autre)
 ```
+
+## Avant d'ouvrir une PR
+
+Lance `bash scripts/validate.sh` (doit sortir en `0`) puis `bash scripts/build-index.sh` pour mettre à jour `CATALOG.md` et `index.json`. La CI rejoue ces deux étapes sur chaque PR.
 
 ## Ce qui sera refusé
 
