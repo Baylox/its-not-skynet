@@ -2,7 +2,7 @@
 
 ## Source
 - Auteur : Baylox
-- Statut : **draft**
+- Statut : **beta**
 - Tags : sécurité, MCP, audit
 - Dépendances : `jq` optionnel (lecture directe sinon)
 
@@ -22,4 +22,4 @@ Copier le dossier du skill dans le projet cible :
 
 ## Environnement testé
 - Outil : Claude Code
-- À tester en conditions réelles (sur un `.mcp.json` concret) avant passage en `beta`.
+- Usage limité : éprouvé sur des `.mcp.json` simples ; configs distantes/exotiques non toutes couvertes.

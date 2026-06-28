@@ -2,7 +2,7 @@
 
 ## Source
 - Auteur : Baylox
-- Statut : **draft**
+- Statut : **beta**
 - Tags : contribution, CI, validation, méta
 - Dépendances : aucune (scripts du repo ; `jq` optionnel)
 
@@ -23,4 +23,4 @@ Conçu pour s'exécuter **à la racine du repo its-not-skynet** (il s'appuie sur
 
 ## Environnement testé
 - Outil : Claude Code
-- À tester en conditions réelles avant passage en `beta`.
+- Usage limité : couvre le flux doctor ; cas de catalogue/audit complexes non tous éprouvés.
