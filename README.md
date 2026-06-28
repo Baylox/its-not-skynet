@@ -4,6 +4,7 @@
 
 **Validated CLI/AI resources. No magic. No uncontrolled network. Just tools that work.**
 
+[![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
 
 [Quick start](#quick-start) · [Contribute with an agent](#contribute-with-an-agent) · [Contents](#contents) · [Philosophy](#why-this-repo)
 
@@ -93,8 +94,11 @@ Pure-shell helpers under [`scripts/`](scripts/) — deterministic, no network, n
 | `scripts/build-index.sh` | Generates `CATALOG.md` + `index.json` from the filesystem + `META.md`. `--check` fails if they're out of sync. |
 | `scripts/find.sh` | Searches resources by keyword / type / status / contributor — `scripts/find.sh -t hooks -s stable`. |
 | `scripts/new.sh` | Scaffolds a new resource (`scripts/new.sh <type> <handle> <name>`) with a pre-filled `META.md` (status `draft`) and a stub. |
+| `scripts/doctor.sh` | Pre-PR health check: runs lint + catalog sync + security audit and tells you what to fix. `scripts/doctor.sh <type>/<handle>/<name>`. |
+| `scripts/audit-hooks.sh` | Security scan of hook scripts — flags runtime network calls, `curl \| sh`, `eval`, `rm -rf`. Advisory; suppress a line with `# audit:allow`. |
+| `scripts/test.sh` | Tests the tooling itself on throwaway fixtures — the validated CLI catalog gets validated CLI tools. |
 
-Browse the full catalog in [`CATALOG.md`](CATALOG.md). A GitHub Action runs `validate.sh` + `build-index.sh --check` on every PR.
+Browse the full catalog in [`CATALOG.md`](CATALOG.md). A GitHub Action runs `test.sh`, `validate.sh`, `build-index.sh --check` and `audit-hooks.sh --strict` on every PR.
 
 ## Conventions
 

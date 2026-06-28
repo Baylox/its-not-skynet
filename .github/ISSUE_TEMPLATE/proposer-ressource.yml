@@ -1,0 +1,75 @@
+name: "Proposer une ressource"
+description: "Soumettre un hook, skill, config, subagent ou schéma d'architecture."
+title: "[ressource] <type>/<pseudo>/<nom>"
+labels: ["ressource"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de contribuer ! Rappel de la **règle fondamentale** : une ressource est
+        soit **créée**, soit **explicitement validée** par son auteur. Rien d'importé sans test perso.
+        Astuce : `bash scripts/new.sh <type> <pseudo> <nom>` scaffolde la structure, puis
+        `bash scripts/doctor.sh <type>/<pseudo>/<nom>` vérifie qu'elle est prête.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type de ressource
+      options:
+        - hook
+        - skill
+        - config
+        - subagent
+        - architecture
+    validations:
+      required: true
+  - type: input
+    id: pseudo
+    attributes:
+      label: Pseudo (handle contributeur)
+      placeholder: "ex : Baylox"
+    validations:
+      required: true
+  - type: input
+    id: nom
+    attributes:
+      label: Nom de la ressource
+      description: "snake_case pour hook/subagent, kebab-case pour skill/config/architecture."
+      placeholder: "ex : pre_tool_use_block_friday_commit"
+    validations:
+      required: true
+  - type: dropdown
+    id: statut
+    attributes:
+      label: Statut
+      description: "Une PR démarre au minimum en beta. draft = pas encore testé en réel."
+      options:
+        - stable
+        - beta
+        - draft
+    validations:
+      required: true
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte d'usage
+      description: "Ce que fait la ressource concrètement et dans quel workflow elle s'intègre."
+    validations:
+      required: true
+  - type: input
+    id: environnement
+    attributes:
+      label: Environnement testé
+      placeholder: "ex : Claude Code 1.x sur macOS / Linux, jq 1.7"
+    validations:
+      required: true
+  - type: checkboxes
+    id: regle
+    attributes:
+      label: Engagement
+      options:
+        - label: "J'ai créé ou testé personnellement cette ressource en conditions réelles."
+          required: true
+        - label: "Elle ne nécessite aucun accès réseau non maîtrisé à l'exécution (ou il est déclaré dans META.md)."
+          required: true
+        - label: "Toute dépendance LLM d'un hook est explicitement marquée dans son META.md."
+          required: false

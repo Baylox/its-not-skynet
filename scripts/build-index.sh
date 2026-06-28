@@ -48,6 +48,9 @@ done < <(meta_list_resources "$ROOT")
 
 count="$(wc -l < "$tsv" | tr -d ' ')"
 
+# Compte les lignes du TSV dont la colonne $1 vaut $2 (déterministe, pur awk).
+tsv_count() { awk -F'\t' -v c="$1" -v k="$2" '$c==k{n++} END{print n+0}' "$tsv"; }
+
 # --- CATALOG.md ---
 cat_md="$TMP/CATALOG.md"
 {
@@ -65,6 +68,38 @@ cat_md="$TMP/CATALOG.md"
         printf '| %s | %s | %s | %s | %s |\n' "$type" "$contrib" "$name" "$status" "$ectx"
     done < "$tsv"
     echo "<!-- END AUTO -->"
+
+    # --- Statistiques (dérivées du même TSV, ordre stable) ---
+    echo
+    echo "## Statistiques"
+    echo
+    echo "<!-- BEGIN STATS -->"
+    echo "**Par type**"
+    echo
+    echo "| Type | Ressources |"
+    echo "|------|-----------|"
+    for type in $META_TYPES; do
+        n="$(tsv_count 1 "$type")"
+        [ "$n" -gt 0 ] && printf '| %s | %s |\n' "$type" "$n"
+    done
+    echo
+    echo "**Par statut**"
+    echo
+    echo "| Statut | Ressources |"
+    echo "|--------|-----------|"
+    for st in stable beta draft —; do
+        n="$(tsv_count 5 "$st")"
+        [ "$n" -gt 0 ] && printf '| %s | %s |\n' "$st" "$n"
+    done
+    echo
+    echo "**Par contributeur**"
+    echo
+    echo "| Contributeur | Ressources |"
+    echo "|--------------|-----------|"
+    # tri : nombre décroissant, puis contributeur alphabétique (départage stable)
+    cut -f2 "$tsv" | sort | uniq -c | sort -k1,1nr -k2,2 \
+        | while read -r n contrib; do printf '| %s | %s |\n' "$contrib" "$n"; done
+    echo "<!-- END STATS -->"
 } > "$cat_md"
 
 # --- index.json (jq pour échappement sûr) ---

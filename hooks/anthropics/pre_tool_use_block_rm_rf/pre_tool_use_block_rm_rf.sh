@@ -8,7 +8,7 @@ INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
 
 if echo "$COMMAND" | grep -qE 'rm\s+-[a-zA-Z]*r[a-zA-Z]*f|rm\s+-[a-zA-Z]*f[a-zA-Z]*r'; then
-    echo "Bloqué : commande rm -rf interdite : $COMMAND" >&2
+    echo "Bloqué : commande rm -rf interdite : $COMMAND" >&2 # audit:allow (message du hard-bloqueur)
     exit 2
 fi
 
