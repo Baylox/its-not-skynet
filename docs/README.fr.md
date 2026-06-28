@@ -4,6 +4,7 @@
 
 **Des ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent.**
 
+[![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
 
 [Démarrage](#démarrage-rapide) · [Contribuer avec un agent](#contribuer-avec-un-agent) · [Contenu](#ce-quon-y-trouve) · [Philosophie](#pourquoi-ce-repo)
 
@@ -82,6 +83,22 @@ Chaque agent CLI dispose de son propre fichier de contexte :
 Les fichiers générés sont toujours des **drafts**. Le statut du `META.md` reste `draft` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
 
 **Vous gardez la main, l'agent fait la plomberie.**
+
+## Outillage
+
+Des helpers pur-shell sous [`scripts/`](../scripts/) — déterministes, zéro réseau, aucune dépendance au-delà de coreutils (`jq` optionnel). Le catalogue d'outils CLI validés a droit à ses propres outils CLI validés.
+
+| Script | Rôle |
+|--------|------|
+| `scripts/validate.sh` | Lint de chaque ressource : `META.md` présent, sections requises, statut valide (`stable`/`beta`/`draft`), nommage, fichier par type. Exit 0/1. |
+| `scripts/build-index.sh` | Génère `CATALOG.md` (+ statistiques) et `index.json`. `--check` échoue si désynchronisé. |
+| `scripts/find.sh` | Recherche par mot-clé / type / statut / contributeur — `scripts/find.sh -t hooks -s stable`. |
+| `scripts/new.sh` | Scaffolde une ressource (`scripts/new.sh <type> <pseudo> <nom>`) avec un `META.md` pré-rempli (statut `draft`) et un stub. |
+| `scripts/doctor.sh` | Bilan avant PR : enchaîne lint + catalogue + audit sécurité et indique quoi corriger. |
+| `scripts/audit-hooks.sh` | Scan sécurité des hooks — réseau à l'exécution, `curl \| sh`, `eval`, `rm -rf`. Consultatif ; `# audit:allow` neutralise une ligne. |
+| `scripts/test.sh` | Teste l'outillage lui-même sur des fixtures jetables. |
+
+Une GitHub Action rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
 
 ## Conventions
 
