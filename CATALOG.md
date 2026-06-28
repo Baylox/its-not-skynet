@@ -1,7 +1,7 @@
 # Catalogue
 
 _Généré par `scripts/build-index.sh` — ne pas éditer à la main entre les balises._
-_28 ressources._
+_30 ressources._
 
 <!-- BEGIN AUTO -->
 | Type | Contributeur | Nom | Statut | Contexte |
@@ -10,8 +10,10 @@ _28 ressources._
 | configs | anthropics | global-base | stable | Configuration globale de base pour Claude Code. Couvre le modèle, la langue, le niveau de réflexion et la protection minimale des fichiers sensibles. Point de départ recommandé avant toute personnalisation. |
 | configs | anthropics | project-base | stable | Configuration projet de base à committer dans `.claude/settings.json`. Définit les permissions git sûres pour toute l'équipe : les lectures courantes sont autorisées sans prompt, les opérations destructives demandent confirmation. |
 | hooks | 404notfood | pre_tool_use_block_secrets | stable | Empêche deux erreurs classiques de sécurité avant qu'elles n'arrivent au dépôt : |
+| hooks | Baylox | block_push_main | draft | Bloque tout `git push` vers `main`/`master` (exit 2). Cohérent avec la règle de branches du |
 | hooks | Baylox | claude_md_sync | stable | Après chaque `git commit`, vérifie que `CLAUDE.md` et les `README.md` des dossiers `hooks/`, `skills/`, `configs/` sont bien synchronisés avec les fichiers ajoutés ou modifiés. |
 | hooks | Baylox | no_coauthor | stable | Bloque toute tentative de commit contenant `Co-Authored-By` dans le message. |
+| hooks | Baylox | pre_commit_run_doctor | draft | Hook de dogfooding pour le repo its-not-skynet : avant chaque `git commit`, il exécute |
 | hooks | anthropics | notification_desktop | stable | Envoie une notification desktop quand Claude Code a besoin d'attention (en attente d'input, tâche longue terminée, etc.). |
 | hooks | anthropics | post_tool_use_log_bash | stable | Journalise chaque commande Bash exécutée par Claude dans `~/.claude/bash-command-log.txt` avec horodatage ISO. |
 | hooks | anthropics | post_tool_use_prettier | stable | Auto-formate chaque fichier écrit ou édité par Claude via Prettier. |
@@ -43,7 +45,7 @@ _28 ressources._
 
 | Type | Ressources |
 |------|-----------|
-| hooks | 9 |
+| hooks | 11 |
 | skills | 15 |
 | configs | 2 |
 | subagents | 1 |
@@ -55,13 +57,14 @@ _28 ressources._
 |--------|-----------|
 | stable | 27 |
 | beta | 1 |
+| draft | 2 |
 
 **Par contributeur**
 
 | Contributeur | Ressources |
 |--------------|-----------|
 | anthropics | 20 |
+| Baylox | 5 |
 | 404notfood | 4 |
-| Baylox | 3 |
 | IGSparkew | 1 |
 <!-- END STATS -->

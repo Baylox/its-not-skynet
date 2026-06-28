@@ -44,6 +44,8 @@ hooks/
 |------|-----------|------|-------------|
 | [no_coauthor](Baylox/no_coauthor/META.md) | `PreToolUse` | shell | Bloque les `Co-Authored-By` dans les commits |
 | [claude_md_sync](Baylox/claude_md_sync/META.md) | `PostToolUse` | shell + prompt | Vérifie la cohérence de CLAUDE.md après chaque commit |
+| [pre_commit_run_doctor](Baylox/pre_commit_run_doctor/META.md) | `PreToolUse` | shell | Bloque un `git commit` si `scripts/doctor.sh` échoue (dogfooding) |
+| [block_push_main](Baylox/block_push_main/META.md) | `PreToolUse` | shell | Bloque tout `git push` vers `main`/`master` |
 
 > `claude_md_sync` existe en deux versions : shell (zéro token, recommandée) et prompt (⚠️ coûte des tokens à chaque commit).
 
