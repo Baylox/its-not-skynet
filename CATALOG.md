@@ -1,7 +1,7 @@
 # Catalogue
 
 _Généré par `scripts/build-index.sh` — ne pas éditer à la main entre les balises._
-_28 ressources._
+_31 ressources._
 
 <!-- BEGIN AUTO -->
 | Type | Contributeur | Nom | Statut | Contexte |
@@ -20,6 +20,9 @@ _28 ressources._
 | hooks | anthropics | session_start_reinject_context | stable | Réinjecte des rappels de contexte projet dans la conversation après une compaction automatique. |
 | skills | 404notfood | laravel-php-review | stable | Skill de revue de code ciblé PHP / Laravel, adapté à **Laravel 12 et 13**. S'utilise avant un merge ou sur une PR pour repérer les failles de sécurité (mass assignment, injection SQL, validation manquante, données exposées, secrets en dur, clés AI SDK), les problèmes de performance (requêtes N+1, absence de pagination) et les écarts de convention propres à ces versions (skeleton slim et `bootstrap/app.php` en L12, attributs PHP / `Queue::route()` en L13). Le skill relit, il ne réécrit pas : chaque remarque est classée par sévérité et pointe fichier + ligne avec un correctif. |
 | skills | 404notfood | seo-laravel | stable | Skill SEO technique **on-page ciblé Laravel / Blade** : sert aussi bien à **auditer** qu'à **implémenter** les bonnes pratiques. Couvre les balises title/meta description, canonical, Open Graph / Twitter Cards, données structurées JSON-LD (Article, Product, FAQ, Breadcrumb…), `robots.txt`, génération de `sitemap.xml` via route, hreflang/i18n et les points de performance qui impactent le SEO (lazy-loading, cache de routes/vues, N+1). Fournit des patterns Blade prêts à l'emploi (sections surchargeables, `@push('head')`, route sitemap). |
+| skills | Baylox | mcp-audit | draft | Revue sécurité statique d'une configuration MCP (`.mcp.json`, bloc `mcpServers` d'un |
+| skills | Baylox | new-resource | draft | Skill « contributeur assisté » : à partir de la description d'une ressource, il génère |
+| skills | Baylox | pre-pr-check | draft | À lancer juste avant d'ouvrir une PR sur its-not-skynet. Le skill enrobe |
 | skills | IGSparkew | interface-architecture | beta | Applique le principe d'inversion de dépendance lors de la génération de code orienté objet en Java, TypeScript, C#, PHP ou Rust. Chaque classe publique ou concept métier est adossée à une abstraction (interface ou trait). Convention de nommage : préfixer le nom de la classe par `I`. |
 | skills | anthropics | algorithmic-art | stable | Crée de l'art génératif interactif via p5.js avec randomness seedée. S'intègre dans des workflows créatifs où l'utilisateur veut générer des visuels algorithmiques (flow fields, systèmes de particules, art procédural) directement depuis Claude. |
 | skills | anthropics | brand-guidelines | stable | Applique les couleurs et typographies officielles Anthropic à tout artifact (slides, HTML, docs). Utile quand on produit du contenu visuel au nom d'Anthropic ou qu'on veut respecter leur charte graphique. |
@@ -44,7 +47,7 @@ _28 ressources._
 | Type | Ressources |
 |------|-----------|
 | hooks | 9 |
-| skills | 15 |
+| skills | 18 |
 | configs | 2 |
 | subagents | 1 |
 | architecture | 1 |
@@ -55,13 +58,14 @@ _28 ressources._
 |--------|-----------|
 | stable | 27 |
 | beta | 1 |
+| draft | 3 |
 
 **Par contributeur**
 
 | Contributeur | Ressources |
 |--------------|-----------|
 | anthropics | 20 |
+| Baylox | 6 |
 | 404notfood | 4 |
-| Baylox | 3 |
 | IGSparkew | 1 |
 <!-- END STATS -->

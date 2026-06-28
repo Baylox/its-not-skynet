@@ -36,6 +36,16 @@ skills/
 | [webapp-testing](anthropics/webapp-testing/META.md) | Tests d'applications web |
 | [web-artifacts-builder](anthropics/web-artifacts-builder/META.md) | Construction d'artefacts web |
 
+### Baylox/
+
+> Skills de maintenance du repo lui-même (méta). Outillent les conventions et la doctrine d'its-not-skynet.
+
+| Skill | Description |
+|-------|-------------|
+| [new-resource](Baylox/new-resource/META.md) | Contributeur assisté : scaffolde une ressource conforme (`new.sh` + META + README + doctor) |
+| [pre-pr-check](Baylox/pre-pr-check/META.md) | Bilan pré-PR : enrobe `doctor.sh` (lint + catalogue + audit) en verdict actionnable |
+| [mcp-audit](Baylox/mcp-audit/META.md) | Revue sécurité statique d'un `.mcp.json` (transport, provenance, secrets, surface) |
+
 ### IGSparkew/
 
 | Skill | Description |
