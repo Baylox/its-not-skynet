@@ -83,6 +83,19 @@ Generated files are always **drafts**. `META.md` status stays `draft` until **yo
 
 **You stay in control, the agent does the plumbing.**
 
+## Tooling
+
+Pure-shell helpers under [`scripts/`](scripts/) — deterministic, no network, no dependencies beyond coreutils (`jq` optional). The catalog of validated CLI tools gets its own validated CLI tools.
+
+| Script | What it does |
+|--------|-------------|
+| `scripts/validate.sh` | Lints every resource: `META.md` present, required sections, valid status (`stable`/`beta`/`draft`), naming convention, type-specific file. Exit 0/1 — CI-friendly. |
+| `scripts/build-index.sh` | Generates `CATALOG.md` + `index.json` from the filesystem + `META.md`. `--check` fails if they're out of sync. |
+| `scripts/find.sh` | Searches resources by keyword / type / status / contributor — `scripts/find.sh -t hooks -s stable`. |
+| `scripts/new.sh` | Scaffolds a new resource (`scripts/new.sh <type> <handle> <name>`) with a pre-filled `META.md` (status `draft`) and a stub. |
+
+Browse the full catalog in [`CATALOG.md`](CATALOG.md). A GitHub Action runs `validate.sh` + `build-index.sh --check` on every PR.
+
 ## Conventions
 
 | Element | Rule |

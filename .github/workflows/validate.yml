@@ -1,0 +1,26 @@
+# Garde-fou CI : lint des ressources + vérification du catalogue.
+#
+# Cohérence avec la règle "zéro réseau non maîtrisé à l'exécution" : cette règle
+# porte sur l'EXÉCUTION des ressources chez l'utilisateur. La CI est une garde
+# dev-time dans l'env GitHub — même catégorie que lancer validate.sh en local.
+# On l'honore en restant dépendance-light : aucun npm install, uniquement les
+# outils préinstallés du runner (bash/grep/sed/awk/jq). Action pinnée par SHA.
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Lint des ressources
+        run: bash scripts/validate.sh
+      - name: Catalogue à jour
+        run: bash scripts/build-index.sh --check
