@@ -3,16 +3,18 @@
 # Shell pur, zéro réseau. La ressource générée démarre TOUJOURS en statut draft
 # (mandat CLAUDE.md : pas de commit avant test en conditions réelles).
 #
-# Usage : new.sh <type> <contributeur> <nom>
+# Usage : new.sh [--root <dir>] <type> <contributeur> <nom>
 #   type         hooks|skills|configs|subagents|architecture
 #   contributeur pseudo (ex: Baylox)
 #   nom          validé contre la convention du type (snake_case ou kebab-case)
+#   --root       racine du repo où créer la ressource (défaut : repo courant)
 set -u
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
 
-usage() { sed -n '7,12p' "$0" >&2; exit 2; }
+usage() { sed -n '6,10p' "$0" >&2; exit 2; }
+if [ "${1:-}" = "--root" ]; then ROOT="$2"; shift 2; fi
 [ $# -eq 3 ] || usage
 type="$1"; contrib="$2"; name="$3"
 

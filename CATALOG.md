@@ -35,3 +35,33 @@ _28 ressources._
 | skills | anthropics | webapp-testing | stable | Teste des applications web locales via Playwright (Python). Couvre la découverte d'éléments, les screenshots, les logs console, et la gestion du cycle de vie serveur via `with_server.py`. Pattern reconnaissance-then-action pour les apps dynamiques. |
 | subagents | 404notfood | laravel_reviewer | stable | Subagent de revue de code PHP / Laravel ciblé **Laravel 12 et 13**. À déléguer avant un merge ou sur une PR : il relit (ne réécrit pas) et signale les failles de sécurité (mass assignment, injection SQL, validation manquante, données exposées, secrets en dur), les problèmes de performance (N+1, pagination) et les écarts de convention propres à ces versions (skeleton slim / `bootstrap/app.php` en L12, attributs PHP / `Queue::route()` en L13). Chaque remarque est classée par sévérité et pointe fichier + ligne avec un correctif. |
 <!-- END AUTO -->
+
+## Statistiques
+
+<!-- BEGIN STATS -->
+**Par type**
+
+| Type | Ressources |
+|------|-----------|
+| hooks | 9 |
+| skills | 15 |
+| configs | 2 |
+| subagents | 1 |
+| architecture | 1 |
+
+**Par statut**
+
+| Statut | Ressources |
+|--------|-----------|
+| stable | 27 |
+| beta | 1 |
+
+**Par contributeur**
+
+| Contributeur | Ressources |
+|--------------|-----------|
+| anthropics | 20 |
+| 404notfood | 4 |
+| Baylox | 3 |
+| IGSparkew | 1 |
+<!-- END STATS -->

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "Contribuer (guide)"
+    url: https://github.com/baylox/its-not-skynet/blob/main/CONTRIBUTING.md
+    about: "Conventions, statuts et template META.md avant d'ouvrir une PR."
+  - name: "Référence des hooks"
+    url: https://github.com/baylox/its-not-skynet/blob/main/hooks/README.md
+    about: "Événements Claude Code et codes de sortie."

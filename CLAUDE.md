@@ -54,12 +54,15 @@ Statut `draft` obligatoire jusqu'à test en conditions réelles. Commit uniqueme
 ## Outillage (`scripts/`)
 
 Outils pur-shell, déterministes, zéro réseau (`jq` optionnel) :
+- `scripts/new.sh` — scaffolder une ressource (dossier + `META.md` draft + stub).
 - `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis). Exit 0/1.
-- `scripts/build-index.sh` — génère `CATALOG.md` + `index.json` ; `--check` échoue si désynchro.
+- `scripts/build-index.sh` — génère `CATALOG.md` (+ stats) + `index.json` ; `--check` échoue si désynchro.
 - `scripts/find.sh` — recherche par mot-clé / type / statut / contributeur.
-- `scripts/new.sh` — scaffolder une ressource.
+- `scripts/audit-hooks.sh` — scan sécurité des hooks (réseau, `curl|sh`, `eval`, `rm -rf`) ; consultatif, `--strict` en CI. Faux positif : `# audit:allow` en fin de ligne.
+- `scripts/doctor.sh` — bilan pré-PR : enchaîne lint + catalogue + audit avec messages actionnables.
+- `scripts/test.sh` — teste l'outillage sur des fixtures jetables.
 
-Avant tout commit de ressource : `bash scripts/validate.sh` (doit sortir en 0) puis `bash scripts/build-index.sh`. La CI (`.github/workflows/validate.yml`) rejoue ces étapes sur chaque PR.
+Avant tout commit de ressource : `bash scripts/doctor.sh` (ou `validate.sh` puis `build-index.sh`). La CI (`.github/workflows/validate.yml`) rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
 
 ## Hooks
 
