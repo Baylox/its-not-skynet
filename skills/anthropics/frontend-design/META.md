@@ -2,6 +2,7 @@
 
 ## Source
 - Auteur : Anthropic (officiel)
+- Statut : **stable**
 - Repo : https://github.com/anthropics/skills
 
 ## Contexte d'usage
