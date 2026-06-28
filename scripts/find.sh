@@ -1,12 +1,13 @@
 #!/bin/bash
 # scripts/find.sh — recherche/filtre les ressources du catalogue. Shell pur, zéro réseau.
 #
-# Usage : find.sh [-k mot-clé] [-t type] [-s statut] [-c contributeur] [--json]
+# Usage : find.sh [-k mot-clé] [-t type] [-s statut] [-c contributeur] [--json] [--root <dir>]
 #   -k  sous-chaîne (insensible à la casse) cherchée dans le nom + le contexte
 #   -t  hooks|skills|configs|subagents|architecture
 #   -s  stable|beta|draft
 #   -c  contributeur (exact, ex: Baylox, anthropics)
 #   --json  émet les entrées index.json correspondantes au lieu d'un tableau
+#   --root  racine du repo à interroger (défaut : repo courant)
 #   (sans filtre) liste tout
 #
 # Chemin rapide : index.json + jq. Repli : scan filesystem via lib/meta.sh.
@@ -24,7 +25,8 @@ while [ $# -gt 0 ]; do
         -s) STATUS="$2"; shift ;;
         -c) CONTRIB="$2"; shift ;;
         --json) JSON=1 ;;
-        -h|--help) sed -n '3,13p' "$0"; exit 0 ;;
+        --root) ROOT="$2"; shift ;;
+        -h|--help) sed -n '4,11p' "$0"; exit 0 ;;
         *) echo "Argument inconnu : $1" >&2; exit 2 ;;
     esac
     shift

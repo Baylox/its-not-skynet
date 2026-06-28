@@ -81,7 +81,14 @@ Ce que fait la ressource concrètement, dans quel workflow elle s'intègre.
 
 ## Avant d'ouvrir une PR
 
-Lance `bash scripts/validate.sh` (doit sortir en `0`) puis `bash scripts/build-index.sh` pour mettre à jour `CATALOG.md` et `index.json`. La CI rejoue ces deux étapes sur chaque PR.
+Le plus simple : `bash scripts/doctor.sh <type>/<pseudo>/<nom>`. Il enchaîne les trois contrôles (lint, catalogue, audit sécurité) et te dit quoi corriger. Il doit sortir en vert.
+
+En détail, si tu préfères les lancer toi-même :
+- `bash scripts/validate.sh` — doit sortir en `0` (conventions, META, statut, nommage)
+- `bash scripts/build-index.sh` — met à jour `CATALOG.md` et `index.json` (à committer)
+- `bash scripts/audit-hooks.sh` — scan sécurité des hooks (consultatif ; `# audit:allow` en fin de ligne pour un faux positif assumé)
+
+La CI rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
 
 ## Ce qui sera refusé
 
