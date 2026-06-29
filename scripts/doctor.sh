@@ -15,7 +15,8 @@
 set -u
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+. "$DIR/lib/meta.sh"
+ROOT="$(meta_default_root "$DIR")"
 FIX=0
 NEW=0
 ntype=''; npseudo=''; nname=''

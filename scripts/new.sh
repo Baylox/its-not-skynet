@@ -11,25 +11,24 @@
 set -u
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+. "$DIR/lib/meta.sh"
+ROOT="$(meta_default_root "$DIR")"
 
 usage() { sed -n '6,10p' "$0" >&2; exit 2; }
 if [ "${1:-}" = "--root" ]; then ROOT="$2"; shift 2; fi
 [ $# -eq 3 ] || usage
 type="$1"; contrib="$2"; name="$3"
 
-case "$type" in
-    hooks|skills|configs|subagents|architecture) ;;
-    *) echo "Type inconnu : '$type' (hooks|skills|configs|subagents|architecture)" >&2; exit 2 ;;
+case " $META_TYPES " in
+    *" $type "*) ;;
+    *) echo "Type inconnu : '$type' ($META_TYPES)" >&2; exit 2 ;;
 esac
 
-snake='^[a-z0-9]+(_[a-z0-9]+)*$'
-kebab='^[a-z0-9]+(-[a-z0-9]+)*$'
 case "$type" in
     hooks|subagents)
-        [[ "$name" =~ $snake ]] || { echo "Nom invalide : '$name' doit être snake_case ($snake)" >&2; exit 2; } ;;
+        [[ "$name" =~ $META_RE_SNAKE ]] || { echo "Nom invalide : '$name' doit être snake_case ($META_RE_SNAKE)" >&2; exit 2; } ;;
     skills|configs|architecture)
-        [[ "$name" =~ $kebab ]] || { echo "Nom invalide : '$name' doit être kebab-case ($kebab)" >&2; exit 2; } ;;
+        [[ "$name" =~ $META_RE_KEBAB ]] || { echo "Nom invalide : '$name' doit être kebab-case ($META_RE_KEBAB)" >&2; exit 2; } ;;
 esac
 
 # Le pseudo n'est pas couvert par le routage de nommage ci-dessus : le sécuriser

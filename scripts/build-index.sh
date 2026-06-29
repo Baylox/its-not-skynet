@@ -14,7 +14,7 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/lib/meta.sh"
 
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+ROOT="$(meta_default_root "$DIR")"
 CHECK=0; DO_JSON=1; DO_README=1
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -87,7 +87,7 @@ cat_md="$TMP/CATALOG.md"
     echo
     echo "| Statut | Ressources |"
     echo "|--------|-----------|"
-    for st in stable beta draft —; do
+    for st in $META_STATUSES —; do
         n="$(tsv_count 5 "$st")"
         [ "$n" -gt 0 ] && printf '| %s | %s |\n' "$st" "$n"
     done

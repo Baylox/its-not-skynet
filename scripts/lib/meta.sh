@@ -1,12 +1,31 @@
 #!/bin/bash
 # scripts/lib/meta.sh — fonctions partagées de parsing META.md (shell pur, zéro réseau).
-# Sourcé par validate.sh, build-index.sh, find.sh. Aucune dépendance hors coreutils.
+# Sourcé par tous les scripts du tooling (validate, build-index, find, audit-hooks,
+# install, new, doctor). Aucune dépendance hors coreutils, aucun effet de bord top-level.
 #
 # Conventions du repo : chaque ressource vit dans <type>/<contributeur>/<nom>/
 # avec un META.md. Les 5 types : hooks skills configs subagents architecture.
 
+# Les constantes META_* ci-dessous sont l'API publique de cette lib : consommées
+# par les scripts qui la sourcent, donc « inutilisées » du seul point de vue d'un
+# linter mono-fichier.
+# shellcheck disable=SC2034
+
 # Les 5 types de ressources, dans l'ordre d'affichage.
 META_TYPES="hooks skills configs subagents architecture"
+
+# Conventions de nommage par type + statuts valides — source unique de vérité
+# (consommées par new.sh et validate.sh ; étendre un statut = éditer META_STATUSES).
+META_RE_SNAKE='^[a-z0-9]+(_[a-z0-9]+)*$'
+META_RE_KEBAB='^[a-z0-9]+(-[a-z0-9]+)*$'
+META_STATUSES="stable beta draft"
+
+# Racine du repo depuis le dossier d'un script ($1 = dossier du script appelant).
+# git si disponible, sinon le parent (scripts/.. = racine). Centralise le bootstrap
+# ROOT dupliqué dans tous les scripts.
+meta_default_root() {
+    git -C "$1" rev-parse --show-toplevel 2>/dev/null || (cd "$1/.." && pwd)
+}
 
 # Liste les répertoires-ressource <type>/<contributeur>/<nom>.
 # $1 = racine repo. Émet un chemin relatif par ligne, trié (ordre déterministe).

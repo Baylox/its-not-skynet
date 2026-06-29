@@ -21,7 +21,7 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/lib/meta.sh"
 
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+ROOT="$(meta_default_root "$DIR")"
 STRICT=0; QUIET=0
 declare -a TARGETS=()
 while [ $# -gt 0 ]; do

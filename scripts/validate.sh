@@ -13,7 +13,7 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/lib/meta.sh"
 
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+ROOT="$(meta_default_root "$DIR")"
 QUIET=0
 declare -a TARGETS=()
 while [ $# -gt 0 ]; do
@@ -27,9 +27,9 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-snake='^[a-z0-9]+(_[a-z0-9]+)*$'
-kebab='^[a-z0-9]+(-[a-z0-9]+)*$'
-valid_status='^(stable|beta|draft)$'
+snake="$META_RE_SNAKE"
+kebab="$META_RE_KEBAB"
+valid_status="^($(printf '%s' "$META_STATUSES" | tr ' ' '|'))$"
 
 fail=0
 warned=0
