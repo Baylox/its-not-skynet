@@ -72,15 +72,42 @@ exit 0
 EOF
         chmod +x "$stub" ;;
     skills)
+        # Scaffold aligné sur la méthodo skill-creator : description orientée
+        # déclenchement + progressive disclosure (détail externalisé vers references/).
         cat > "$dir/SKILL.md" <<EOF
 ---
 name: $name
-description: <!-- Une phrase : quand ce skill se déclenche et ce qu'il fait. -->
+description: TODO — en 1 à 3 phrases, QUAND déclencher ce skill (verbes d'action, mots-clés que l'utilisateur emploie) et ce qu'il produit. Précise aussi quand NE PAS le déclencher.
 ---
 
 # $name
 
-<!-- Instructions du skill. -->
+<!--
+La \`description\` du frontmatter est la SEULE chose que l'agent lit pour décider
+de charger ce skill : sois explicite sur les déclencheurs et les exclusions.
+Progressive disclosure : garde ce SKILL.md court et actionnable (< 500 lignes) ;
+externalise le détail (specs longues, tables, exemples) vers references/ et lie-le.
+-->
+
+## Quand l'utiliser
+<!-- Situations concrètes de déclenchement, et cas à exclure. -->
+
+## Méthode
+<!-- Les étapes que l'agent doit suivre, dans l'ordre. -->
+
+## Références
+<!-- Détail chargé à la demande — supprime cette section si inutile. -->
+- [Exemple détaillé](references/example.md)
+EOF
+        mkdir -p "$dir/references"
+        cat > "$dir/references/example.md" <<EOF
+# Référence — $name
+
+<!--
+Place ici le détail volumineux que le SKILL.md ne doit pas porter :
+spécifications longues, tableaux, exemples complets, cas limites.
+L'agent ne charge ce fichier que lorsque le SKILL.md y renvoie.
+-->
 EOF
         ;;
     subagents)

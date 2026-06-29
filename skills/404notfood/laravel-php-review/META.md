@@ -10,12 +10,11 @@ Skill de revue de code ciblé PHP / Laravel, adapté à **Laravel 12 et 13**. S'
 
 ## Installation
 
-### Pour un skill — Copier dans le projet cible :
+### Pour un skill — Copier le dossier dans le projet cible :
 ```
-.claude/skills/laravel-php-review.md
+.claude/skills/laravel-php-review/
 ```
-
-(copier le contenu de `SKILL.md` sous ce nom)
+(ou `bash scripts/install.sh skills/404notfood/laravel-php-review /chemin/du/projet`)
 
 ## Environnement testé
 - Outil : Claude Code

@@ -36,6 +36,55 @@ warned=0
 violation() { printf 'KO    %-50s %s\n' "$1" "$2" >&2; fail=1; }
 warning()   { printf 'WARN  %-50s %s\n' "$1" "$2" >&2; warned=1; }
 
+# Seuil de lignes d'un SKILL.md au-delà duquel on conseille la progressive
+# disclosure (externaliser le détail vers references/). Warning, non bloquant.
+SKILL_MAX_LINES=500
+
+# Lint spécifique aux skills : présence et contenu du frontmatter, cohérence
+# name/dossier, description remplie, liens locaux valides, budget de lignes.
+check_skill() {
+    local abs="$1" res="$2" name="$3" skill="$abs/SKILL.md"
+
+    [ -f "$skill" ] || { violation "$res" "SKILL.md manquant"; return; }
+
+    # frontmatter YAML obligatoire (Claude Code le requiert pour charger le skill)
+    if ! meta_has_frontmatter "$skill"; then
+        violation "$res" "SKILL.md sans frontmatter YAML (--- attendu en 1re ligne)"
+        return
+    fi
+
+    # name : présent et aligné sur le dossier (clé de déclenchement du skill)
+    local fname; fname="$(meta_frontmatter "$skill" name)"
+    if [ -z "$fname" ]; then
+        violation "$res" "frontmatter SKILL.md : champ 'name' manquant"
+    elif [ "$fname" != "$name" ]; then
+        violation "$res" "frontmatter name ('$fname') ≠ nom du dossier ('$name')"
+    fi
+
+    # description : présente et réellement remplie (pas le placeholder du stub)
+    local fdesc; fdesc="$(meta_frontmatter "$skill" description)"
+    if [ -z "$fdesc" ]; then
+        violation "$res" "frontmatter SKILL.md : champ 'description' manquant"
+    elif case "$fdesc" in *'<!--'*|'<'*) true ;; *) false ;; esac; then
+        violation "$res" "description SKILL.md non remplie (placeholder du stub)"
+    fi
+
+    # liens markdown locaux cassés (ex: references/foo.md absent) — non bloquant
+    local link target
+    while IFS= read -r link; do
+        [ -n "$link" ] || continue
+        case "$link" in http://*|https://*|'#'*|mailto:*) continue ;; esac
+        target="${link%%#*}"
+        [ -n "$target" ] || continue
+        [ -e "$abs/$target" ] || warning "$res" "lien cassé dans SKILL.md : $target"
+    done < <(grep -oE '\]\([^)]+\)' "$skill" 2>/dev/null | sed -E 's/^\]\(//; s/\)$//')
+
+    # budget de lignes : au-delà du seuil, recommander la progressive disclosure
+    local lines; lines="$(wc -l < "$skill" | tr -d ' ')"
+    [ "${lines:-0}" -le "$SKILL_MAX_LINES" ] \
+        || warning "$res" "SKILL.md = ${lines} lignes (> ${SKILL_MAX_LINES} : externalise le détail vers references/)"
+}
+
 check_one() {
     local res="$1" abs="$ROOT/$1"
     local type="${res%%/*}" name="${res##*/}"
@@ -77,7 +126,7 @@ check_one() {
             ls "$abs"/*.sh >/dev/null 2>&1 || [ -f "$abs/hook.json" ] \
                 || violation "$res" "aucun *.sh ni hook.json" ;;
         skills)
-            [ -f "$abs/SKILL.md" ] || violation "$res" "SKILL.md manquant" ;;
+            check_skill "$abs" "$res" "$name" ;;
         subagents|architecture)
             [ -n "$(find "$abs" -maxdepth 1 -name '*.md' ! -name META.md -print -quit)" ] \
                 || violation "$res" "aucun fichier .md de définition" ;;

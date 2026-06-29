@@ -54,8 +54,9 @@ Statut `draft` obligatoire jusqu'à test en conditions réelles. Commit uniqueme
 ## Outillage (`scripts/`)
 
 Outils pur-shell, déterministes, zéro réseau (`jq` optionnel) :
-- `scripts/new.sh` — scaffolder une ressource (dossier + `META.md` draft + stub).
-- `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis). Exit 0/1.
+- `scripts/new.sh` — scaffolder une ressource (dossier + `META.md` draft + stub ; skills : description orientée déclenchement + `references/`).
+- `scripts/install.sh` — installer une ressource dans un projet cible (`skills/<pseudo>/<nom> <projet>` → `.claude/skills/<nom>/`, subagents → `.claude/agents/`, hooks → `.claude/hooks/` + rappel `settings.json`).
+- `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis ; skills : frontmatter, `name`==dossier, description, liens). Exit 0/1.
 - `scripts/build-index.sh` — génère `CATALOG.md` (+ stats) + `index.json` ; `--check` échoue si désynchro.
 - `scripts/find.sh` — recherche par mot-clé / type / statut / contributeur.
 - `scripts/audit-hooks.sh` — scan sécurité des hooks (réseau, `curl|sh`, `eval`, `rm -rf`) ; consultatif, `--strict` en CI. Faux positif : `# audit:allow` en fin de ligne.

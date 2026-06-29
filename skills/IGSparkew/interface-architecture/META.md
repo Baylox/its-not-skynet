@@ -9,10 +9,11 @@ Applique le principe d'inversion de dépendance lors de la génération de code 
 
 ## Installation
 
-Copier dans le projet cible :
+Copier le dossier du skill dans le projet cible :
 ```
-.claude/skills/interface-architecture.md
+.claude/skills/interface-architecture/
 ```
+(ou `bash scripts/install.sh skills/IGSparkew/interface-architecture /chemin/du/projet`)
 
 ## Environnement testé
 - Outil : non renseigné

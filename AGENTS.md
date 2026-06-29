@@ -82,8 +82,9 @@ If a hook depends on an LLM, mark that dependency explicitly in `META.md`.
 ## Tooling (`scripts/`)
 
 Pure-shell, deterministic, no network (`jq` optional):
-- `scripts/new.sh <type> <handle> <name>` — scaffold a resource (folder + `META.md` draft + stub).
-- `scripts/validate.sh` — lint resources (exit 0/1); `scripts/build-index.sh` — regenerate `CATALOG.md` (+ stats) + `index.json` (`--check` to verify sync); `scripts/find.sh` — search by keyword/type/status/contributor.
+- `scripts/new.sh <type> <handle> <name>` — scaffold a resource (folder + `META.md` draft + stub; skills get a trigger-oriented description + `references/`).
+- `scripts/install.sh <type>/<handle>/<name> [project]` — install a resource into a target project (`.claude/skills/<name>/`, `.claude/agents/`, `.claude/hooks/` + `settings.json` snippet). No manual copy-paste.
+- `scripts/validate.sh` — lint resources (exit 0/1; skills also: frontmatter, `name`==folder, description, local links); `scripts/build-index.sh` — regenerate `CATALOG.md` (+ stats) + `index.json` (`--check` to verify sync); `scripts/find.sh` — search by keyword/type/status/contributor.
 - `scripts/audit-hooks.sh` — security scan of hook scripts (network, `curl|sh`, `eval`, `rm -rf`); advisory, `--strict` in CI. False positive: append `# audit:allow` to the line.
 - `scripts/doctor.sh` — pre-PR health check chaining lint + catalog + audit with actionable hints; `scripts/test.sh` — tests the tooling on throwaway fixtures.
 

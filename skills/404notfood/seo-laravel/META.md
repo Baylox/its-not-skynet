@@ -12,12 +12,11 @@ Skill SEO technique **on-page ciblé Laravel / Blade** : sert aussi bien à **au
 
 ## Installation
 
-### Pour un skill — Copier dans le projet cible :
+### Pour un skill — Copier le dossier dans le projet cible :
 ```
-.claude/skills/seo-laravel.md
+.claude/skills/seo-laravel/
 ```
-
-(copier le contenu de `SKILL.md` sous ce nom)
+(ou `bash scripts/install.sh skills/404notfood/seo-laravel /chemin/du/projet`)
 
 ## Environnement testé
 - Outil : Claude Code
