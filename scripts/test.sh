@@ -130,6 +130,33 @@ out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
 assert_exit 1 "$rc" "skill sans SKILL.md rejeté"
 assert_contains "$out" "SKILL.md manquant" "message SKILL.md"
 
+testcase "validate: skill sans frontmatter YAML"
+r="$TMP/skill_nofm"; mkdir -p "$r/skills/x/s"; write_meta "$r/skills/x/s/META.md" x beta
+printf '# s\nPas de frontmatter ici.\n' > "$r/skills/x/s/SKILL.md"
+out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "SKILL.md sans frontmatter rejeté"
+assert_contains "$out" "frontmatter" "message frontmatter"
+
+testcase "validate: skill name ≠ dossier"
+r="$TMP/skill_badname"; mkdir -p "$r/skills/x/real-name"; write_meta "$r/skills/x/real-name/META.md" x beta
+printf -- '---\nname: autre-nom\ndescription: une vraie description.\n---\n# x\n' > "$r/skills/x/real-name/SKILL.md"
+out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "name ≠ dossier rejeté"
+assert_contains "$out" "nom du dossier" "message name/dossier"
+
+testcase "validate: skill description non remplie (placeholder)"
+r="$TMP/skill_stub"; mkdir -p "$r/skills/x/s"; write_meta "$r/skills/x/s/META.md" x beta
+printf -- '---\nname: s\ndescription: <!-- à remplir -->\n---\n# s\n' > "$r/skills/x/s/SKILL.md"
+out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "description placeholder rejetée"
+assert_contains "$out" "non remplie" "message description non remplie"
+
+testcase "validate: skill CRLF accepté"
+r="$TMP/skill_crlf"; mkdir -p "$r/skills/x/s"; write_meta "$r/skills/x/s/META.md" x beta
+printf -- '---\r\nname: s\r\ndescription: ok.\r\n---\r\n# s\r\n' > "$r/skills/x/s/SKILL.md"
+out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "frontmatter CRLF toléré"
+
 testcase "validate: hook sans .sh ni hook.json"
 r="$TMP/nohookfile"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable
 out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
@@ -225,6 +252,14 @@ testcase "new: ressource générée passe le lint"
 out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
 assert_exit 0 "$rc" "scaffold conforme à validate.sh"
 
+testcase "new: skill scaffoldé crée references/ et passe le lint"
+r2="$TMP/newskill"; mkdir -p "$r2"
+bash "$DIR/new.sh" --root "$r2" skills zoe my-skill >/dev/null 2>&1
+assert_file "$r2/skills/zoe/my-skill/SKILL.md" "SKILL.md scaffoldé"
+assert_file "$r2/skills/zoe/my-skill/references/example.md" "references/example.md scaffoldé"
+out="$(bash "$DIR/validate.sh" --root "$r2" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "skill scaffoldé conforme à validate.sh"
+
 testcase "new: refuse un nom non conforme"
 out="$(bash "$DIR/new.sh" --root "$TMP/x1" hooks zoe Bad-Name 2>&1)"; rc=$?
 assert_exit 2 "$rc" "nom non snake_case refusé"
@@ -238,6 +273,37 @@ bash "$DIR/new.sh" --root "$r" skills zoe dup-skill >/dev/null 2>&1
 out="$(bash "$DIR/new.sh" --root "$r" skills zoe dup-skill 2>&1)"; rc=$?
 assert_exit 1 "$rc" "doublon refusé"
 assert_contains "$out" "Existe déjà" "message doublon"
+
+# --- install.sh --------------------------------------------------------------
+testcase "install: skill copié sans META.md"
+proj="$TMP/proj1"; mkdir -p "$proj"
+out="$(bash "$DIR/install.sh" --root "$VALID" skills/bob/nice-skill "$proj" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "install skill exit 0"
+assert_file "$proj/.claude/skills/nice-skill/SKILL.md" "SKILL.md installé dans .claude/skills/<nom>/"
+[ ! -f "$proj/.claude/skills/nice-skill/META.md" ] && ok "META.md non copié dans le projet" || bad "META.md copié à tort"
+
+testcase "install: refuse l'écrasement sans --force"
+out="$(bash "$DIR/install.sh" --root "$VALID" skills/bob/nice-skill "$proj" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "écrasement refusé sans --force"
+assert_contains "$out" "Existe déjà" "message existe déjà"
+
+testcase "install: --force écrase"
+out="$(bash "$DIR/install.sh" --root "$VALID" --force skills/bob/nice-skill "$proj" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "--force réinstalle"
+
+testcase "install: --dry-run ne crée rien"
+proj2="$TMP/proj2"; mkdir -p "$proj2"
+out="$(bash "$DIR/install.sh" --root "$VALID" --dry-run skills/bob/nice-skill "$proj2" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "dry-run exit 0"
+[ ! -e "$proj2/.claude" ] && ok "dry-run n'écrit pas" || bad "dry-run a créé des fichiers"
+
+testcase "install: ressource introuvable"
+out="$(bash "$DIR/install.sh" --root "$VALID" skills/bob/inexistant "$proj" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "ressource absente rejetée"
+
+testcase "install: forme de ressource invalide"
+out="$(bash "$DIR/install.sh" --root "$VALID" skills/bob "$proj" 2>&1)"; rc=$?
+assert_exit 2 "$rc" "chemin incomplet rejeté (exit 2)"
 
 # --- audit-hooks.sh ----------------------------------------------------------
 testcase "audit: repo sain"

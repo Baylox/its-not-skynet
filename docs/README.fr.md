@@ -93,7 +93,8 @@ Des helpers pur-shell sous [`scripts/`](../scripts/) — déterministes, zéro r
 | `scripts/validate.sh` | Lint de chaque ressource : `META.md` présent, sections requises, statut valide (`stable`/`beta`/`draft`), nommage, fichier par type. Exit 0/1. |
 | `scripts/build-index.sh` | Génère `CATALOG.md` (+ statistiques) et `index.json`. `--check` échoue si désynchronisé. |
 | `scripts/find.sh` | Recherche par mot-clé / type / statut / contributeur — `scripts/find.sh -t hooks -s stable`. |
-| `scripts/new.sh` | Scaffolde une ressource (`scripts/new.sh <type> <pseudo> <nom>`) avec un `META.md` pré-rempli (statut `draft`) et un stub. |
+| `scripts/new.sh` | Scaffolde une ressource (`scripts/new.sh <type> <pseudo> <nom>`) avec un `META.md` pré-rempli (statut `draft`) et un stub. Les skills reçoivent une description orientée déclenchement et un dossier `references/` (progressive disclosure). |
+| `scripts/install.sh` | Installe une ressource dans un projet cible — `scripts/install.sh skills/<pseudo>/<nom> /chemin/du/projet`. Copie un skill (avec ses `references/`) vers `.claude/skills/<nom>/`, un subagent vers `.claude/agents/`, les scripts d'un hook vers `.claude/hooks/` (+ le bloc `settings.json` à câbler). Fini le copier-coller manuel. |
 | `scripts/doctor.sh` | Bilan avant PR : enchaîne lint + catalogue + audit sécurité et indique quoi corriger. |
 | `scripts/audit-hooks.sh` | Scan sécurité des hooks — réseau à l'exécution, `curl \| sh`, `eval`, `rm -rf`. Consultatif ; `# audit:allow` neutralise une ligne. |
 | `scripts/test.sh` | Teste l'outillage lui-même sur des fixtures jetables. |

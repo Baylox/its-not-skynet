@@ -51,8 +51,16 @@ skills/
 
 ## Comment utiliser un skill
 
-Copier le `SKILL.md` dans le projet cible :
+Un skill Claude Code est un **dossier** (`SKILL.md` + ses éventuelles `references/`). Copier le dossier complet dans le projet cible :
 
 ```
-.claude/skills/nom-du-skill.md
+.claude/skills/nom-du-skill/
+├── SKILL.md
+└── references/        # si le skill en a
+```
+
+Raccourci sans copier-coller :
+
+```bash
+bash scripts/install.sh skills/<pseudo>/nom-du-skill /chemin/du/projet
 ```

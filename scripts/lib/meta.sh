@@ -40,6 +40,39 @@ meta_has_section() {
     grep -qE "^##[[:space:]]+$2" "$1" 2>/dev/null
 }
 
+# Extrait la valeur d'un champ du frontmatter YAML (bloc entre les deux '---' en
+# tête de fichier). $1 = fichier, $2 = clé (ex: name, description). Vide si absent
+# ou si le fichier n'a pas de frontmatter. Gère les valeurs entre guillemets.
+meta_frontmatter() {
+    local file="$1" key="$2"
+    awk -v key="$key" '
+        { sub(/\r$/, "") }               # tolère les fins de ligne CRLF
+        NR==1 && $0!="---" {exit}        # pas de frontmatter
+        NR==1 {next}                     # ouvre le bloc
+        $0=="---" {exit}                 # ferme le bloc
+        {
+            i = index($0, ":")
+            if (i == 0) next
+            k = substr($0, 1, i-1)
+            gsub(/^[ \t]+|[ \t]+$/, "", k)
+            if (k != key) next
+            v = substr($0, i+1)
+            gsub(/^[ \t]+|[ \t]+$/, "", v)
+            gsub(/^"|"$/, "", v)         # retire les guillemets encadrants
+            print v
+            exit
+        }
+    ' "$file" 2>/dev/null
+}
+
+# Vrai si le fichier débute par un frontmatter YAML (première ligne = ---).
+# Tolère les fins de ligne CRLF.
+meta_has_frontmatter() {
+    [ -f "$1" ] || return 1
+    local first; IFS= read -r first < "$1"
+    [ "${first%$'\r'}" = "---" ]
+}
+
 # Première ligne non vide de la section "## Contexte d'usage" (pour le catalogue).
 # awk : depuis "## Contexte" jusqu'au prochain "##" -> 1re ligne de texte, espaces collés.
 meta_context_oneline() {

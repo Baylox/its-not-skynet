@@ -65,10 +65,11 @@ Ce que fait la ressource concrètement, dans quel workflow elle s'intègre.
 }
 \`\`\`
 
-### Pour un skill — Copier dans le projet cible :
+### Pour un skill — Copier le dossier dans le projet cible (SKILL.md + references/) :
 \`\`\`
-.claude/skills/nom-du-skill.md
+.claude/skills/nom-du-skill/
 \`\`\`
+(ou `bash scripts/install.sh skills/<pseudo>/nom-du-skill /chemin/du/projet`)
 
 ### Pour une config — Copier vers :
 \`\`\`
