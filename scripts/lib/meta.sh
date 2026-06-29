@@ -15,9 +15,12 @@ meta_list_resources() {
     for type in $META_TYPES; do
         [ -d "$root/$type" ] || continue
         # profondeur exacte 2 sous le type : ignore les README de niveau type/ et type/contrib/
+        # strip du préfixe en pur-shell : $root injecté dans un sed serait
+        # interprété comme regex BRE (un [ . * dans le chemin de checkout
+        # ferait perdre TOUTES les ressources silencieusement).
         find "$root/$type" -mindepth 2 -maxdepth 2 -type d 2>/dev/null \
-            | sed "s|^$root/||"
-    done | sort
+            | while IFS= read -r d; do printf '%s\n' "${d#"$root"/}"; done
+    done | LC_ALL=C sort
 }
 
 # Extrait la valeur d'un champ "- Clé : valeur" (typiquement sous ## Source).
@@ -46,6 +49,7 @@ meta_has_section() {
 meta_frontmatter() {
     local file="$1" key="$2"
     awk -v key="$key" '
+        NR==1 { sub(/^\357\273\277/, "") } # tolère un BOM UTF-8 en tête (octal: mawk+gawk)
         { sub(/\r$/, "") }               # tolère les fins de ligne CRLF
         NR==1 && $0!="---" {exit}        # pas de frontmatter
         NR==1 {next}                     # ouvre le bloc
@@ -70,6 +74,7 @@ meta_frontmatter() {
 meta_has_frontmatter() {
     [ -f "$1" ] || return 1
     local first; IFS= read -r first < "$1"
+    first="${first#$'\xEF\xBB\xBF'}"   # tolère un BOM UTF-8
     [ "${first%$'\r'}" = "---" ]
 }
 

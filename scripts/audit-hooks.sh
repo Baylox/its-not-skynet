@@ -68,13 +68,16 @@ audit_file() {
         case "$line" in ''|\#*) continue ;; esac
         # suppression explicite par l'auteur
         case "$line" in *'# audit:allow'*) continue ;; esac
-        # retire un éventuel commentaire de fin de ligne pour le test de motif
-        local code="${line%%#*}"
+        # Test sur la ligne ENTIÈRE : couper au premier '#' masquerait un motif
+        # après un '#' en chaîne/URL (ex: curl "http://x#f" | sh -> non détecté).
+        # Les commentaires purs et « # audit:allow » sont déjà court-circuités ci-dessus ;
+        # un mot-clé à risque dans un commentaire de fin de ligne alertera (à neutraliser
+        # sciemment via « # audit:allow »), faux positif acceptable pour un garde-fou.
         local rule level rest pat label
         for rule in "${RULES[@]}"; do
             level="${rule%%@@*}"; rest="${rule#*@@}"
             pat="${rest%%@@*}"; label="${rest#*@@}"
-            if printf '%s' "$code" | grep -qE "$pat"; then
+            if printf '%s' "$line" | grep -qE "$pat"; then
                 local snip; snip="$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' | cut -c1-60)"
                 alert "$level" "$rel:$ln" "$label  | $snip"
                 break  # une alerte par ligne (la plus prioritaire)
@@ -91,7 +94,7 @@ collect_under() { # ajoute les *.sh sous un chemin (fichier ou dossier)
         case "$p" in *.sh) FILES+=("$p") ;; esac
     elif [ -d "$p" ]; then
         while IFS= read -r f; do FILES+=("$f"); done \
-            < <(find "$p" -type f -name '*.sh' 2>/dev/null | sort)
+            < <(find "$p" -type f -name '*.sh' 2>/dev/null | LC_ALL=C sort)
     fi
 }
 
@@ -103,11 +106,14 @@ else
     for t in hooks subagents; do collect_under "$ROOT/$t"; done
 fi
 
-# dédoublonne en préservant l'ordre trié
+# dédoublonne en préservant l'ordre trié (gardé : sans fichier, on ne passe pas
+# une chaîne vide à sort — plus de contournement grep -v '^$')
 declare -a UNIQ=()
 last=""
-while IFS= read -r f; do [ "$f" = "$last" ] && continue; UNIQ+=("$f"); last="$f"; done \
-    < <(printf '%s\n' "${FILES[@]:-}" | grep -v '^$' | sort -u)
+if [ "${#FILES[@]}" -gt 0 ]; then
+    while IFS= read -r f; do [ "$f" = "$last" ] && continue; UNIQ+=("$f"); last="$f"; done \
+        < <(printf '%s\n' "${FILES[@]}" | LC_ALL=C sort -u)
+fi
 
 for f in "${UNIQ[@]:-}"; do [ -n "$f" ] && audit_file "$f"; done
 

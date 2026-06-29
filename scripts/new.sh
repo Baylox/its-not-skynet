@@ -32,6 +32,11 @@ case "$type" in
         [[ "$name" =~ $kebab ]] || { echo "Nom invalide : '$name' doit être kebab-case ($kebab)" >&2; exit 2; } ;;
 esac
 
+# Le pseudo n'est pas couvert par le routage de nommage ci-dessus : le sécuriser
+# ferme un path traversal (ex: « new.sh hooks ../../etc h » créerait hors --root).
+[[ "$contrib" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] \
+    || { echo "Pseudo invalide : '$contrib' (alphanumérique ; . _ - autorisés)" >&2; exit 2; }
+
 dir="$ROOT/$type/$contrib/$name"
 [ -e "$dir" ] && { echo "Existe déjà : $type/$contrib/$name — abandon (aucun écrasement)." >&2; exit 1; }
 mkdir -p "$dir"
@@ -137,7 +142,7 @@ EOF
 esac
 
 echo "Ressource créée : $type/$contrib/$name (statut draft)"
-find "$dir" -type f | sed "s|^$ROOT/|  |" | sort
+find "$dir" -type f | sort | while IFS= read -r f; do printf '  %s\n' "${f#"$ROOT"/}"; done
 cat >&2 <<EOF
 
 Rappel : statut = draft. Teste en conditions réelles avant beta/stable.

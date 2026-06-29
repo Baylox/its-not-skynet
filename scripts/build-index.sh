@@ -39,7 +39,7 @@ while IFS= read -r res; do
     meta="$ROOT/$res/META.md"
     [ -f "$meta" ] || continue
     type="${res%%/*}"
-    contrib="$(echo "$res" | cut -d/ -f2)"
+    contrib="${res#*/}"; contrib="${contrib%%/*}"
     name="${res##*/}"
     status="$(meta_status "$meta")"; [ -n "$status" ] || status="—"
     context="$(meta_context_oneline "$meta")"; [ -n "$context" ] || context="—"
@@ -62,7 +62,7 @@ cat_md="$TMP/CATALOG.md"
     echo "<!-- BEGIN AUTO -->"
     echo "| Type | Contributeur | Nom | Statut | Contexte |"
     echo "|------|--------------|-----|--------|----------|"
-    while IFS=$'\t' read -r type contrib name path status context; do
+    while IFS=$'\t' read -r type contrib name _ status context; do
         # échappe les | pour ne pas casser le tableau markdown
         ectx="$(printf '%s' "$context" | sed 's/|/\\|/g')"
         printf '| %s | %s | %s | %s | %s |\n' "$type" "$contrib" "$name" "$status" "$ectx"
@@ -97,7 +97,7 @@ cat_md="$TMP/CATALOG.md"
     echo "| Contributeur | Ressources |"
     echo "|--------------|-----------|"
     # tri : nombre décroissant, puis contributeur alphabétique (départage stable)
-    cut -f2 "$tsv" | sort | uniq -c | sort -k1,1nr -k2,2 \
+    cut -f2 "$tsv" | LC_ALL=C sort | uniq -c | LC_ALL=C sort -k1,1nr -k2,2 \
         | while read -r n contrib; do printf '| %s | %s |\n' "$contrib" "$n"; done
     echo "<!-- END STATS -->"
 } > "$cat_md"
@@ -115,13 +115,27 @@ fi
 inject_readme() {
     local readme="$1" type="$2"
     [ -f "$readme" ] || return 0
-    grep -q '<!-- BEGIN AUTO -->' "$readme" || return 0
-    grep -q '<!-- END AUTO -->'   "$readme" || return 0
+    # Appariement strict des balises avant de réécrire en place : sinon l'awk
+    # d'injection supprime tout le contenu après une balise orpheline/mal ordonnée.
+    local nb ne lb le
+    nb="$(grep -c '<!-- BEGIN AUTO -->' "$readme")"
+    ne="$(grep -c '<!-- END AUTO -->'   "$readme")"
+    [ "$nb" -eq 0 ] && [ "$ne" -eq 0 ] && return 0   # pas de bloc auto : opt-out silencieux
+    if [ "$nb" -ne 1 ] || [ "$ne" -ne 1 ]; then
+        echo "README $readme : balises AUTO non appariées ($nb BEGIN / $ne END) — resync ignorée." >&2
+        return 0
+    fi
+    lb="$(grep -n '<!-- BEGIN AUTO -->' "$readme" | head -1 | cut -d: -f1)"
+    le="$(grep -n '<!-- END AUTO -->'   "$readme" | head -1 | cut -d: -f1)"
+    if [ "$lb" -ge "$le" ]; then
+        echo "README $readme : balise END avant BEGIN — resync ignorée." >&2
+        return 0
+    fi
     local tbl="$TMP/tbl-$type.md"
     {
         echo "| Contributeur | Nom | Statut | Contexte |"
         echo "|--------------|-----|--------|----------|"
-        while IFS=$'\t' read -r t contrib name path status context; do
+        while IFS=$'\t' read -r t contrib name _ status context; do
             [ "$t" = "$type" ] || continue
             ectx="$(printf '%s' "$context" | sed 's/|/\\|/g')"
             printf '| %s | %s | %s | %s |\n' "$contrib" "$name" "$status" "$ectx"

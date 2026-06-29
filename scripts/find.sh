@@ -46,8 +46,14 @@ align_tsv() {
 
 # --- Chemin rapide : index.json + jq ---
 if [ -f "$INDEX" ] && command -v jq >/dev/null 2>&1; then
-    # avertit si l'index est plus vieux que le plus récent META.md
-    if [ -n "$(find "$ROOT"/{hooks,skills,configs,subagents,architecture} -name META.md -newer "$INDEX" -print -quit 2>/dev/null)" ]; then
+    # avertit si l'index est plus vieux que le plus récent META.md. Parcourt
+    # META_TYPES plutôt qu'un glob brace codé en dur (pas d'angle mort si un type s'ajoute).
+    stale=0
+    for t in $META_TYPES; do
+        [ -d "$ROOT/$t" ] || continue
+        [ -n "$(find "$ROOT/$t" -name META.md -newer "$INDEX" -print -quit 2>/dev/null)" ] && { stale=1; break; }
+    done
+    if [ "$stale" -eq 1 ]; then
         echo "Note : index.json semble périmé — lance scripts/build-index.sh." >&2
     fi
     filter='.[] | select(
@@ -70,7 +76,7 @@ fi
     printf 'TYPE\tCONTRIB\tNOM\tSTATUT\tCONTEXTE\n'
     while IFS= read -r res; do
         meta="$ROOT/$res/META.md"; [ -f "$meta" ] || continue
-        type="${res%%/*}"; contrib="$(echo "$res" | cut -d/ -f2)"; name="${res##*/}"
+        type="${res%%/*}"; contrib="${res#*/}"; contrib="${contrib%%/*}"; name="${res##*/}"
         [ -z "$TYPE" ] || [ "$TYPE" = "$type" ] || continue
         [ -z "$CONTRIB" ] || [ "$CONTRIB" = "$contrib" ] || continue
         st="$(meta_status "$meta")"; [ -n "$st" ] || st="—"
