@@ -33,6 +33,8 @@ L'absence de statut est un motif de rejet. Toute ressource soumise via PR commen
 Chaque ressource doit inclure un `META.md`. Copiez-collez ce template et supprimez les sections inutiles :
 
 > Astuce : `bash scripts/new.sh <type> <pseudo> <nom>` génère le dossier, un `META.md` pré-rempli (statut `draft`) et le fichier stub à la bonne convention.
+>
+> Encore plus direct : `bash scripts/doctor.sh --new <type> <pseudo> <nom>` enchaîne le scaffold, l'ouverture dans `$EDITOR` et le lint en une seule commande.
 
 ```markdown
 # Meta — nom-de-la-ressource

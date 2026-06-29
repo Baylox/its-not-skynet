@@ -157,6 +157,17 @@ printf -- '---\r\nname: s\r\ndescription: ok.\r\n---\r\n# s\r\n' > "$r/skills/x/
 out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
 assert_exit 0 "$rc" "frontmatter CRLF toléré"
 
+testcase "validate: référence orpheline signalée (warning, non bloquant)"
+r="$TMP/skill_orphan"; mkdir -p "$r/skills/x/s/references"; write_meta "$r/skills/x/s/META.md" x beta
+printf -- '---\nname: s\ndescription: ok.\n---\n# s\nVoir `references/cited.md`.\n' > "$r/skills/x/s/SKILL.md"
+printf '# cité\n' > "$r/skills/x/s/references/cited.md"
+printf '# orphelin\n' > "$r/skills/x/s/references/orphan.md"
+out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "warning orpheline ne bloque pas"
+assert_contains "$out" "orpheline" "référence non citée signalée"
+assert_contains "$out" "orphan.md" "bon fichier orphelin pointé"
+assert_not_contains "$out" "cited.md" "référence citée non signalée"
+
 testcase "validate: hook sans .sh ni hook.json"
 r="$TMP/nohookfile"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable
 out="$(bash "$DIR/validate.sh" --root "$r" 2>&1)"; rc=$?
@@ -354,6 +365,18 @@ printf 'exit 0\n' > "$r/hooks/x/bad-name/bad-name.sh"
 out="$(bash "$DIR/doctor.sh" --root "$r" 2>&1)"; rc=$?
 assert_exit 1 "$rc" "doctor exit 1 si une ressource viole le lint"
 assert_contains "$out" "Pas encore prêt" "verdict rouge"
+
+testcase "doctor: --new scaffolde puis lint au vert"
+r="$TMP/doctornew"; mkdir -p "$r"
+out="$(bash "$DIR/doctor.sh" --root "$r" --new skills zoe brand-new 2>&1)"; rc=$?
+assert_exit 0 "$rc" "doctor --new exit 0"
+assert_file "$r/skills/zoe/brand-new/SKILL.md" "ressource créée par --new"
+assert_contains "$out" "Lint" "étape lint exécutée"
+assert_contains "$out" "conforme" "scaffold conforme"
+
+testcase "doctor: --new refuse args incomplets"
+out="$(bash "$DIR/doctor.sh" --root "$TMP/dn2" --new skills zoe 2>&1)"; rc=$?
+assert_exit 2 "$rc" "args manquants rejetés (exit 2)"
 
 testcase "doctor: --fix régénère le catalogue"
 r="$TMP/doctorfix"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable

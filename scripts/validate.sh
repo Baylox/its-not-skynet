@@ -83,6 +83,18 @@ check_skill() {
     local lines; lines="$(wc -l < "$skill" | tr -d ' ')"
     [ "${lines:-0}" -le "$SKILL_MAX_LINES" ] \
         || warning "$res" "SKILL.md = ${lines} lignes (> ${SKILL_MAX_LINES} : externalise le détail vers references/)"
+
+    # fichiers references/ jamais cités par le SKILL.md (orphelins) — non bloquant.
+    # Match par nom de fichier : couvre les liens markdown ET les chemins en
+    # backticks (ex: `references/java.md`). Évite les faux positifs de syntaxe.
+    if [ -d "$abs/references" ]; then
+        local ref base
+        while IFS= read -r ref; do
+            base="$(basename "$ref")"
+            grep -qF "$base" "$skill" 2>/dev/null \
+                || warning "$res" "référence orpheline (jamais citée dans SKILL.md) : references/$base"
+        done < <(find "$abs/references" -type f 2>/dev/null)
+    fi
 }
 
 check_one() {
