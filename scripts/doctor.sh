@@ -4,9 +4,11 @@
 # quoi faire ensuite. Pont entre new.sh (création) et la CI (vérification).
 #
 # Usage : doctor.sh [--fix] [--root <dir>] [path ...]
+#         doctor.sh --new <type> <pseudo> <nom>
 #   (sans args)   contrôle tout le repo
 #   path ...      cible une/des ressource(s) (ex : la tienne avant PR)
 #   --fix         régénère le catalogue si désynchronisé (au lieu d'échouer)
+#   --new         scaffolde (new.sh) → ouvre $EDITOR si défini → lint la ressource
 #
 # Étapes : 1) lint des ressources  2) catalogue à jour  3) audit sécurité.
 # Exit 0 = prêt pour la PR. Exit 1 = au moins un contrôle bloquant a échoué.
@@ -15,10 +17,19 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
 FIX=0
+NEW=0
+ntype=''; npseudo=''; nname=''
 declare -a TARGETS=()
 while [ $# -gt 0 ]; do
     case "$1" in
         --fix)  FIX=1 ;;
+        --new)
+            NEW=1
+            ntype="${2:-}"; npseudo="${3:-}"; nname="${4:-}"
+            if [ -z "$ntype" ] || [ -z "$npseudo" ] || [ -z "$nname" ]; then
+                echo "Usage : doctor.sh --new <type> <pseudo> <nom>" >&2; exit 2
+            fi
+            shift 3 ;;
         --root) ROOT="$2"; shift ;;
         --) shift; while [ $# -gt 0 ]; do TARGETS+=("$1"); shift; done; break ;;
         -*) echo "Option inconnue : $1" >&2; exit 2 ;;
@@ -37,6 +48,46 @@ step() { printf '\n%s== %s ==%s\n' "$bold" "$1" "$rst"; }
 ok()   { printf '%s✓%s %s\n' "$grn" "$rst" "$1"; }
 ko()   { printf '%s✗%s %s\n' "$red" "$rst" "$1"; rc=1; }
 note() { printf '%s  %s%s\n' "$dim" "$1" "$rst"; }
+
+# --- Mode --new : scaffolde → édite → lint, puis sort ------------------------
+# Boucle courte de création (pont new.sh → validate.sh). N'enchaîne PAS le
+# catalogue/audit : une ressource fraîche est en draft, pas destinée au catalogue
+# tant qu'elle n'est pas testée.
+if [ "$NEW" -eq 1 ]; then
+    step "Création (new.sh)"
+    if bash "$DIR/new.sh" --root "$ROOT" "$ntype" "$npseudo" "$nname"; then
+        ok "Ressource scaffoldée (statut draft)."
+    else
+        ko "Échec du scaffold — voir ci-dessus."; exit 1
+    fi
+
+    res="$ntype/$npseudo/$nname"
+    main=''
+    case "$ntype" in
+        skills)                 main="$ROOT/$res/SKILL.md" ;;
+        hooks)                  main="$ROOT/$res/$nname.sh" ;;
+        subagents|architecture) main="$ROOT/$res/$nname.md" ;;
+        configs)                main="$ROOT/$res/settings.json" ;;
+    esac
+
+    if [ -n "${EDITOR:-}" ] && [ -t 0 ] && [ -n "$main" ] && [ -f "$main" ]; then
+        step "Édition (\$EDITOR)"
+        "$EDITOR" "$main"
+    elif [ -n "$main" ]; then
+        note "Édite : $main"
+        note "(définis \$EDITOR pour l'ouvrir automatiquement ici)"
+    fi
+
+    step "Lint (validate.sh)"
+    if bash "$DIR/validate.sh" --root "$ROOT" "$res"; then
+        ok "Ressource conforme aux conventions."
+    else
+        ko "À corriger (voir ci-dessus)."
+    fi
+    note "Ensuite : teste en conditions réelles, passe le statut à beta,"
+    note "puis avant la PR : bash scripts/doctor.sh $res"
+    exit "$rc"
+fi
 
 # --- 1) Lint des ressources --------------------------------------------------
 step "1/3 Lint des ressources (validate.sh)"

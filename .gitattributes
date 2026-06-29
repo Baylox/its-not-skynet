@@ -1,0 +1,12 @@
+# Fins de ligne normalisées : LF dans le dépôt pour tout fichier texte.
+# Évite le mélange CRLF/LF (les contributeurs Windows/Laragon committaient en CRLF).
+* text=auto eol=lf
+
+# Les scripts shell DOIVENT être en LF : un \r en fin de shebang casse l'exécution.
+*.sh text eol=lf
+
+# Le tooling et les ressources sont du texte UTF-8.
+*.md   text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.txt  text eol=lf

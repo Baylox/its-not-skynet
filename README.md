@@ -90,12 +90,12 @@ Pure-shell helpers under [`scripts/`](scripts/) — deterministic, no network, n
 
 | Script | What it does |
 |--------|-------------|
-| `scripts/validate.sh` | Lints every resource: `META.md` present, required sections, valid status (`stable`/`beta`/`draft`), naming convention, type-specific file. Exit 0/1 — CI-friendly. |
+| `scripts/validate.sh` | Lints every resource: `META.md` present, required sections, valid status (`stable`/`beta`/`draft`), naming convention, type-specific file. Skills also: YAML frontmatter, `name`==folder, filled description, broken/orphan `references/` links, line budget. Exit 0/1 — CI-friendly. |
 | `scripts/build-index.sh` | Generates `CATALOG.md` + `index.json` from the filesystem + `META.md`. `--check` fails if they're out of sync. |
 | `scripts/find.sh` | Searches resources by keyword / type / status / contributor — `scripts/find.sh -t hooks -s stable`. |
 | `scripts/new.sh` | Scaffolds a new resource (`scripts/new.sh <type> <handle> <name>`) with a pre-filled `META.md` (status `draft`) and a stub. Skills get a trigger-oriented description and a `references/` folder (progressive disclosure). |
 | `scripts/install.sh` | Installs a resource into a target project — `scripts/install.sh skills/<handle>/<name> /path/to/project`. Copies a skill folder (with its `references/`) to `.claude/skills/<name>/`, a subagent to `.claude/agents/`, a hook's scripts to `.claude/hooks/` (plus the `settings.json` snippet to wire it). No manual copy-paste. |
-| `scripts/doctor.sh` | Pre-PR health check: runs lint + catalog sync + security audit and tells you what to fix. `scripts/doctor.sh <type>/<handle>/<name>`. |
+| `scripts/doctor.sh` | Pre-PR health check: runs lint + catalog sync + security audit and tells you what to fix. `scripts/doctor.sh <type>/<handle>/<name>`. Also `--new <type> <handle> <name>` to scaffold → edit (`$EDITOR`) → lint in one go. |
 | `scripts/audit-hooks.sh` | Security scan of hook scripts — flags runtime network calls, `curl \| sh`, `eval`, `rm -rf`. Advisory; suppress a line with `# audit:allow`. |
 | `scripts/test.sh` | Tests the tooling itself on throwaway fixtures — the validated CLI catalog gets validated CLI tools. |
 

@@ -56,11 +56,11 @@ Statut `draft` obligatoire jusqu'à test en conditions réelles. Commit uniqueme
 Outils pur-shell, déterministes, zéro réseau (`jq` optionnel) :
 - `scripts/new.sh` — scaffolder une ressource (dossier + `META.md` draft + stub ; skills : description orientée déclenchement + `references/`).
 - `scripts/install.sh` — installer une ressource dans un projet cible (`skills/<pseudo>/<nom> <projet>` → `.claude/skills/<nom>/`, subagents → `.claude/agents/`, hooks → `.claude/hooks/` + rappel `settings.json`).
-- `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis ; skills : frontmatter, `name`==dossier, description, liens). Exit 0/1.
+- `scripts/validate.sh` — lint des ressources (META, sections, statut valide, nommage, fichier requis ; skills : frontmatter, `name`==dossier, description, liens cassés/orphelins, budget de lignes). Exit 0/1.
 - `scripts/build-index.sh` — génère `CATALOG.md` (+ stats) + `index.json` ; `--check` échoue si désynchro.
 - `scripts/find.sh` — recherche par mot-clé / type / statut / contributeur.
 - `scripts/audit-hooks.sh` — scan sécurité des hooks (réseau, `curl|sh`, `eval`, `rm -rf`) ; consultatif, `--strict` en CI. Faux positif : `# audit:allow` en fin de ligne.
-- `scripts/doctor.sh` — bilan pré-PR : enchaîne lint + catalogue + audit avec messages actionnables.
+- `scripts/doctor.sh` — bilan pré-PR : enchaîne lint + catalogue + audit avec messages actionnables. `--new <type> <pseudo> <nom>` : scaffolde → ouvre `$EDITOR` → lint, en une commande.
 - `scripts/test.sh` — teste l'outillage sur des fixtures jetables.
 
 Avant tout commit de ressource : `bash scripts/doctor.sh` (ou `validate.sh` puis `build-index.sh`). La CI (`.github/workflows/validate.yml`) rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
