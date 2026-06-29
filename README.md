@@ -105,8 +105,8 @@ Browse the full catalog in [`CATALOG.md`](CATALOG.md). A GitHub Action runs `tes
 
 | Element | Rule |
 |---------|------|
-| Skill folders | `kebab-case` |
-| Hook / config folders | `snake_case` |
+| Hook / subagent folders | `snake_case` |
+| Skill / config / architecture folders | `kebab-case` |
 | Resource path | `<type>/<contributor-handle>/<name>/` |
 | Hooks | Pure shell preferred. Any LLM dependency must be declared in `META.md`. |
 

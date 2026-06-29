@@ -105,8 +105,8 @@ Une GitHub Action rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `
 
 | Élément | Règle |
 |---------|-------|
-| Dossiers de skills | `kebab-case` |
-| Dossiers de hooks / configs | `snake_case` |
+| Dossiers de hooks / subagents | `snake_case` |
+| Dossiers de skills / configs / architecture | `kebab-case` |
 | Chemin d'une ressource | `<type>/<pseudo-contributeur>/<nom>/` |
 | Hooks | Shell pur privilégié. Toute dépendance LLM doit être déclarée dans le `META.md`. |
 
