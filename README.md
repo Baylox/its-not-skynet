@@ -99,6 +99,8 @@ Pure-shell helpers under [`scripts/`](scripts/) — deterministic, no network, n
 | `scripts/audit-hooks.sh` | Security scan of hook scripts — flags runtime network calls, `curl \| sh`, `eval`, `rm -rf`. Advisory; suppress a line with `# audit:allow`. |
 | `scripts/test.sh` | Tests the tooling itself on throwaway fixtures — the validated CLI catalog gets validated CLI tools. |
 
+**Common flags:** every script accepts `--root <dir>` to target another repo. `validate.sh` / `audit-hooks.sh` take `--quiet` (problems only); `audit-hooks.sh --strict` exits 1 on a `HIGH` alert (CI). `build-index.sh` takes `--check` (verify only, no write — `index.json` is compared only when `jq` is present), `--no-json`, `--no-readme`. `install.sh` takes `--dry-run` (preview) and `--force` (overwrite). `doctor.sh` takes `--fix` (regenerate the catalog instead of failing) and `--new`.
+
 Browse the full catalog in [`CATALOG.md`](CATALOG.md). A GitHub Action runs `test.sh`, `validate.sh`, `build-index.sh --check` and `audit-hooks.sh --strict` on every PR.
 
 ## Conventions
