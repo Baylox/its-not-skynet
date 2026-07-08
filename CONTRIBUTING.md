@@ -41,9 +41,9 @@ Chaque ressource doit inclure un `META.md`. Copiez-collez ce template et supprim
 
 ## Source
 - Auteur : Votre nom / alias
-- Repo : https://... (si applicable)
 - Statut : **stable** / **beta** / **draft**
-<!-- Champs optionnels (reconnus par scripts/build-index.sh et scripts/find.sh) : -->
+<!-- Champs optionnels (le scaffold `new.sh` n'émet que Auteur + Statut) : -->
+<!-- - Repo : https://... (si applicable) -->
 <!-- - Tags : sécurité, git -->
 <!-- - Dépendances : jq -->
 <!-- - Testé le : AAAA-MM-JJ -->

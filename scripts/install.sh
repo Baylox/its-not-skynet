@@ -20,7 +20,8 @@
 set -u
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+. "$DIR/lib/meta.sh"
+ROOT="$(meta_default_root "$DIR")"
 FORCE=0
 DRY=0
 declare -a POS=()
@@ -35,8 +36,13 @@ while [ $# -gt 0 ]; do
     esac
     shift
 done
+ROOT="${ROOT%/}"   # tolère un --root avec slash final (sinon le strip de préfixe échoue)
 
 [ "${#POS[@]}" -ge 1 ] || { sed -n '6,14p' "$0" >&2; exit 2; }
+# distingue « argument omis » (défaut = cwd) de « argument vide » (erreur appelant)
+if [ "${#POS[@]}" -ge 2 ] && [ -z "${POS[1]}" ]; then
+    echo "Projet cible vide — passe un chemin, ou omets l'argument pour le répertoire courant." >&2; exit 2
+fi
 res="${POS[0]#"$ROOT"/}"; res="${res%/}"        # tolère un chemin absolu ou un / final
 target="${POS[1]:-.}"
 
@@ -45,11 +51,14 @@ IFS='/' read -r type contrib name extra <<<"$res"
 if [ -z "${name:-}" ] || [ -n "${extra:-}" ]; then
     echo "Ressource invalide : '$res' (attendu <type>/<contributeur>/<nom>)" >&2; exit 2
 fi
+# rejette les segments '.'/'..' : sinon skills/bob/. ferait un rm -rf/cp sur un parent
+case "$contrib" in .|..) echo "Contributeur invalide : '$contrib'" >&2; exit 2 ;; esac
+case "$name"    in .|..) echo "Nom de ressource invalide : '$name'" >&2; exit 2 ;; esac
 src="$ROOT/$res"
 [ -d "$src" ] || { echo "Ressource introuvable : $res" >&2; exit 1; }
 
-dim=''; grn=''; ylw=''; red=''; rst=''
-if [ -t 1 ]; then dim=$'\033[2m'; grn=$'\033[32m'; ylw=$'\033[33m'; red=$'\033[31m'; rst=$'\033[0m'; fi
+dim=''; grn=''; ylw=''; rst=''
+if [ -t 1 ]; then dim=$'\033[2m'; grn=$'\033[32m'; ylw=$'\033[33m'; rst=$'\033[0m'; fi
 note() { printf '%s  %s%s\n' "$dim" "$1" "$rst"; }
 done_msg() { printf '%s✓%s %s\n' "$grn" "$rst" "$1"; }
 
@@ -78,12 +87,17 @@ case "$type" in
         fi
         if [ "$DRY" -eq 1 ]; then
             note "[dry-run] créerait $dest/ (SKILL.md + references/, sans META.md)"
-            find "$src" -mindepth 1 -maxdepth 1 ! -name META.md | sed "s|^$src/|  + |"
+            find "$src" -mindepth 1 -maxdepth 1 ! -name META.md \
+                | while IFS= read -r f; do printf '  + %s\n' "${f#"$src"/}"; done
             exit 0
         fi
-        mkdir -p "$dest" && rm -rf "$dest" && mkdir -p "$dest"
-        # copie tout le contenu du skill SAUF META.md (métadonnée du catalogue)
-        find "$src" -mindepth 1 -maxdepth 1 ! -name META.md -exec cp -R {} "$dest/" \;
+        # copie fiable : cp -R d'un coup (find -exec cp renvoie 0 même si cp échoue),
+        # puis on retire le META.md (métadonnée du catalogue, hors projet cible).
+        mkdir -p "$dest" && rm -rf "$dest" && mkdir -p "$dest" \
+            || { echo "Préparation de $dest échouée." >&2; exit 1; }
+        cp -R "$src/." "$dest/" \
+            || { echo "Copie du skill échouée vers $dest" >&2; rm -rf "$dest"; exit 1; }
+        rm -f "$dest/META.md"
         done_msg "Skill installé : $dest"
         note "Vérifie qu'il se charge : relance Claude Code dans $target, puis /skills."
         ;;

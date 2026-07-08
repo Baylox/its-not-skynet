@@ -42,6 +42,8 @@ Quand un contributeur décrit une ressource, Claude génère la structure compl�
 | Hook | `nom_hook.sh` + `META.md` | `snake_case` |
 | Skill | `SKILL.md` + `META.md` | `kebab-case` |
 | Config | fichier(s) config + `META.md` | `kebab-case` |
+| Subagent | `<nom>.md` + `META.md` | `snake_case` |
+| Architecture | `<nom>.md` + `META.md` | `kebab-case` |
 
 3. Remplir le `META.md` (template dans CONTRIBUTING.md) — statut : `draft`
 4. Mettre à jour le `README.md` du dossier parent

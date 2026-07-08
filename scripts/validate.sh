@@ -13,7 +13,7 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$DIR/lib/meta.sh"
 
-ROOT="$(git -C "$DIR" rev-parse --show-toplevel 2>/dev/null || (cd "$DIR/.." && pwd))"
+ROOT="$(meta_default_root "$DIR")"
 QUIET=0
 declare -a TARGETS=()
 while [ $# -gt 0 ]; do
@@ -27,9 +27,9 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-snake='^[a-z0-9]+(_[a-z0-9]+)*$'
-kebab='^[a-z0-9]+(-[a-z0-9]+)*$'
-valid_status='^(stable|beta|draft)$'
+snake="$META_RE_SNAKE"
+kebab="$META_RE_KEBAB"
+valid_status="^($(printf '%s' "$META_STATUSES" | tr ' ' '|'))$"
 
 fail=0
 warned=0
@@ -43,7 +43,8 @@ SKILL_MAX_LINES=500
 # Lint spécifique aux skills : présence et contenu du frontmatter, cohérence
 # name/dossier, description remplie, liens locaux valides, budget de lignes.
 check_skill() {
-    local abs="$1" res="$2" name="$3" skill="$abs/SKILL.md"
+    local abs="$1" res="$2" name="$3"
+    local skill="$abs/SKILL.md"   # local séparé : "$abs" n'est pas encore affecté dans le local précédent
 
     [ -f "$skill" ] || { violation "$res" "SKILL.md manquant"; return; }
 
@@ -65,7 +66,7 @@ check_skill() {
     local fdesc; fdesc="$(meta_frontmatter "$skill" description)"
     if [ -z "$fdesc" ]; then
         violation "$res" "frontmatter SKILL.md : champ 'description' manquant"
-    elif case "$fdesc" in *'<!--'*|'<'*) true ;; *) false ;; esac; then
+    elif case "$fdesc" in *'<!--'*) true ;; *) false ;; esac; then
         violation "$res" "description SKILL.md non remplie (placeholder du stub)"
     fi
 
@@ -75,12 +76,13 @@ check_skill() {
         [ -n "$link" ] || continue
         case "$link" in http://*|https://*|'#'*|mailto:*) continue ;; esac
         target="${link%%#*}"
+        target="${target%% *}"   # retire un titre optionnel : [x](path "Titre")
         [ -n "$target" ] || continue
         [ -e "$abs/$target" ] || warning "$res" "lien cassé dans SKILL.md : $target"
     done < <(grep -oE '\]\([^)]+\)' "$skill" 2>/dev/null | sed -E 's/^\]\(//; s/\)$//')
 
     # budget de lignes : au-delà du seuil, recommander la progressive disclosure
-    local lines; lines="$(wc -l < "$skill" | tr -d ' ')"
+    local lines; lines="$(awk 'END{print NR}' "$skill")"
     [ "${lines:-0}" -le "$SKILL_MAX_LINES" ] \
         || warning "$res" "SKILL.md = ${lines} lignes (> ${SKILL_MAX_LINES} : externalise le détail vers references/)"
 
@@ -88,10 +90,13 @@ check_skill() {
     # Match par nom de fichier : couvre les liens markdown ET les chemins en
     # backticks (ex: `references/java.md`). Évite les faux positifs de syntaxe.
     if [ -d "$abs/references" ]; then
-        local ref base
+        local ref base esc
         while IFS= read -r ref; do
             base="$(basename "$ref")"
-            grep -qF "$base" "$skill" 2>/dev/null \
+            # frontière de nom (et non sous-chaîne) : un orphelin a.md ne doit pas
+            # être masqué par la citation d'un ba.md. '/' compte comme frontière.
+            esc="$(printf '%s' "$base" | sed 's/[][\\.*^$/]/\\&/g')"
+            grep -qE "(^|[^[:alnum:]_-])${esc}([^[:alnum:]_-]|$)" "$skill" 2>/dev/null \
                 || warning "$res" "référence orpheline (jamais citée dans SKILL.md) : references/$base"
         done < <(find "$abs/references" -type f 2>/dev/null)
     fi

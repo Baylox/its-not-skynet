@@ -15,6 +15,8 @@ You are operating as an automated contributor for the `its-not-skynet` repositor
     - **Hooks**: `snake_case` (e.g., `hooks/user/pre_tool_use_check/`)
     - **Skills**: `kebab-case` (e.g., `skills/user/my-new-skill/`)
     - **Configs**: `kebab-case`
+    - **Subagents**: `snake_case`
+    - **Architecture**: `kebab-case`
 - **Mandatory Files**:
     - Hook: `*.sh` + `META.md`
     - Skill: `SKILL.md` + `META.md`

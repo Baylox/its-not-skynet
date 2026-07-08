@@ -61,6 +61,8 @@ When a contributor describes a resource, generate the full resource structure im
 | Hook | `hook_name.sh` + `META.md` | `snake_case` |
 | Skill | `SKILL.md` + `META.md` | `kebab-case` |
 | Config | config file(s) + `META.md` | `kebab-case` |
+| Subagent | `<name>.md` + `META.md` | `snake_case` |
+| Architecture | `<name>.md` + `META.md` | `kebab-case` |
 
 ### Mandatory actions
 

@@ -99,14 +99,16 @@ Des helpers pur-shell sous [`scripts/`](../scripts/) — déterministes, zéro r
 | `scripts/audit-hooks.sh` | Scan sécurité des hooks — réseau à l'exécution, `curl \| sh`, `eval`, `rm -rf`. Consultatif ; `# audit:allow` neutralise une ligne. |
 | `scripts/test.sh` | Teste l'outillage lui-même sur des fixtures jetables. |
 
+**Options courantes :** tous les scripts acceptent `--root <dir>` pour viser un autre dépôt. `validate.sh` / `audit-hooks.sh` ont `--quiet` (n'affiche que les problèmes) ; `audit-hooks.sh --strict` sort en 1 sur une alerte `HIGH` (CI). `build-index.sh` a `--check` (vérifie sans écrire — `index.json` n'est comparé que si `jq` est présent), `--no-json`, `--no-readme`. `install.sh` a `--dry-run` (aperçu) et `--force` (écrase). `doctor.sh` a `--fix` (régénère le catalogue au lieu d'échouer) et `--new`.
+
 Une GitHub Action rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
 
 ## Conventions
 
 | Élément | Règle |
 |---------|-------|
-| Dossiers de skills | `kebab-case` |
-| Dossiers de hooks / configs | `snake_case` |
+| Dossiers de hooks / subagents | `snake_case` |
+| Dossiers de skills / configs / architecture | `kebab-case` |
 | Chemin d'une ressource | `<type>/<pseudo-contributeur>/<nom>/` |
 | Hooks | Shell pur privilégié. Toute dépendance LLM doit être déclarée dans le `META.md`. |
 

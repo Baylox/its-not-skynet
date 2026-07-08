@@ -220,6 +220,25 @@ bash "$DIR/build-index.sh" --root "$r" --no-json >/dev/null 2>&1
 assert_file "$r/CATALOG.md" "CATALOG.md généré sans json"
 [ ! -f "$r/index.json" ] && ok "index.json non créé avec --no-json" || bad "index.json créé à tort"
 
+testcase "build-index: inject_readme remplit un README à balises AUTO"
+r="$TMP/readme_auto"; mkdir -p "$r/hooks/dan/h"; write_meta "$r/hooks/dan/h/META.md" dan stable
+printf '#!/bin/bash\nexit 0\n' > "$r/hooks/dan/h/h.sh"
+printf '# hooks\n\n<!-- BEGIN AUTO -->\nVIEUX\n<!-- END AUTO -->\n\nfin\n' > "$r/hooks/README.md"
+bash "$DIR/build-index.sh" --root "$r" >/dev/null 2>&1
+rd="$(cat "$r/hooks/README.md")"
+assert_contains "$rd" "| dan | h |" "table injectée entre les balises AUTO"
+assert_not_contains "$rd" "VIEUX" "ancien contenu auto remplacé"
+assert_contains "$rd" "fin" "contenu hors balises préservé"
+
+testcase "build-index: balise AUTO orpheline -> README intact (garde)"
+r="$TMP/readme_orphan"; mkdir -p "$r/hooks/dan/h"; write_meta "$r/hooks/dan/h/META.md" dan stable
+printf '#!/bin/bash\nexit 0\n' > "$r/hooks/dan/h/h.sh"
+printf '# hooks\n<!-- BEGIN AUTO -->\nCONTENU IMPORTANT\n' > "$r/hooks/README.md"
+before="$(cat "$r/hooks/README.md")"
+bash "$DIR/build-index.sh" --root "$r" >/dev/null 2>&1
+after="$(cat "$r/hooks/README.md")"
+[ "$before" = "$after" ] && ok "README à balise orpheline laissé intact" || bad "README modifié malgré balise orpheline"
+
 # --- find.sh -----------------------------------------------------------------
 testcase "find: filtre par type"
 out="$(bash "$DIR/find.sh" --root "$VALID" -t skills 2>&1)"; rc=$?
@@ -248,6 +267,19 @@ if command -v jq >/dev/null 2>&1; then
 else
     ok "jq absent — test --json sauté"
 fi
+
+testcase "find: repli filesystem sans index.json"
+r="$TMP/find_fallback"; mkdir -p "$r/skills/bob/solo-skill"
+write_meta "$r/skills/bob/solo-skill/META.md" bob beta
+printf -- '---\nname: solo-skill\ndescription: x\n---\n# s\n' > "$r/skills/bob/solo-skill/SKILL.md"
+out="$(bash "$DIR/find.sh" --root "$r" -t skills 2>&1)"; rc=$?
+assert_exit 0 "$rc" "find sans index.json (repli) exit 0"
+assert_contains "$out" "solo-skill" "ressource listée via le scan filesystem"
+
+testcase "find: --json sans index.json refusé"
+out="$(bash "$DIR/find.sh" --root "$r" --json 2>&1)"; rc=$?
+assert_exit 2 "$rc" "--json sans index.json rejeté (exit 2)"
+assert_contains "$out" "index.json" "message explique le besoin d'index.json + jq"
 
 # --- new.sh ------------------------------------------------------------------
 testcase "new: scaffolde un hook en draft"
@@ -316,6 +348,47 @@ testcase "install: forme de ressource invalide"
 out="$(bash "$DIR/install.sh" --root "$VALID" skills/bob "$proj" 2>&1)"; rc=$?
 assert_exit 2 "$rc" "chemin incomplet rejeté (exit 2)"
 
+# fixture dédiée couvrant les types installables hors skills
+INST="$TMP/inst-src"
+mkdir -p "$INST/hooks/u/my_hook" "$INST/subagents/u/my_agent" "$INST/configs/u/my_conf" "$INST/architecture/u/my_arch"
+write_meta "$INST/hooks/u/my_hook/META.md" u stable
+printf '#!/bin/bash\nexit 0\n' > "$INST/hooks/u/my_hook/my_hook.sh"
+write_meta "$INST/subagents/u/my_agent/META.md" u stable
+printf -- '---\nname: my_agent\n---\nprompt\n' > "$INST/subagents/u/my_agent/my_agent.md"
+write_meta "$INST/configs/u/my_conf/META.md" u stable
+printf '{}\n' > "$INST/configs/u/my_conf/settings.json"
+write_meta "$INST/architecture/u/my_arch/META.md" u stable
+printf '# arch\n' > "$INST/architecture/u/my_arch/my_arch.md"
+
+testcase "install: hook (scripts + rappel settings.json, sans META)"
+proj="$TMP/proj_hook"; mkdir -p "$proj"
+out="$(bash "$DIR/install.sh" --root "$INST" hooks/u/my_hook "$proj" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "install hook exit 0"
+assert_file "$proj/.claude/hooks/my_hook/my_hook.sh" "script du hook copié dans .claude/hooks/<nom>/"
+[ ! -f "$proj/.claude/hooks/my_hook/META.md" ] && ok "META.md du hook non copié" || bad "META.md copié à tort"
+assert_contains "$out" "settings.json" "rappel de câblage settings.json"
+
+testcase "install: subagent dans .claude/agents/"
+proj="$TMP/proj_agent"; mkdir -p "$proj"
+out="$(bash "$DIR/install.sh" --root "$INST" subagents/u/my_agent "$proj" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "install subagent exit 0"
+assert_file "$proj/.claude/agents/my_agent.md" "définition copiée dans .claude/agents/"
+
+testcase "install: config -> guidance sans écrasement auto"
+proj="$TMP/proj_conf"; mkdir -p "$proj"
+out="$(bash "$DIR/install.sh" --root "$INST" configs/u/my_conf "$proj" 2>&1)"; rc=$?
+assert_exit 0 "$rc" "install config exit 0 (guidance)"
+assert_contains "$out" "settings.json" "guidance mentionne settings.json"
+[ ! -e "$proj/.claude" ] && ok "config n'écrit rien automatiquement" || bad "config a écrit dans le projet"
+
+testcase "install: architecture non installable"
+out="$(bash "$DIR/install.sh" --root "$INST" architecture/u/my_arch "$TMP/proj_arch" 2>&1)"; rc=$?
+assert_exit 1 "$rc" "architecture rejetée (documentaire)"
+
+testcase "install: cible projet vide refusée"
+out="$(bash "$DIR/install.sh" --root "$INST" hooks/u/my_hook "" 2>&1)"; rc=$?
+assert_exit 2 "$rc" "cible vide rejetée (exit 2)"
+
 # --- audit-hooks.sh ----------------------------------------------------------
 testcase "audit: repo sain"
 out="$(bash "$DIR/audit-hooks.sh" --root "$VALID" 2>&1)"; rc=$?
@@ -352,6 +425,26 @@ printf '#!/bin/bash\neval "$x"\n' > "$r/hooks/x/h/h.sh"
 out="$(bash "$DIR/audit-hooks.sh" --root "$r" --strict 2>&1)"; rc=$?
 assert_contains "$out" "WARN" "eval signalé WARN"
 assert_exit 0 "$rc" "--strict ne bloque pas sur WARN seul"
+
+testcase "audit: rm -rf signalé HIGH et bloque en --strict"
+r="$TMP/audit_rmrf"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable
+printf '#!/bin/bash\nrm -rf "$d"\n' > "$r/hooks/x/h/h.sh"
+out="$(bash "$DIR/audit-hooks.sh" --root "$r" --strict 2>&1)"; rc=$?
+assert_contains "$out" "HIGH" "rm -rf signalé HIGH"
+assert_exit 1 "$rc" "--strict échoue sur rm -rf"
+
+testcase "audit: socket /dev/tcp signalé HIGH"
+r="$TMP/audit_devtcp"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable
+printf '#!/bin/bash\nexec 3<>/dev/tcp/evil/80\n' > "$r/hooks/x/h/h.sh"
+out="$(bash "$DIR/audit-hooks.sh" --root "$r" 2>&1)"
+assert_contains "$out" "HIGH" "/dev/tcp signalé HIGH"
+
+testcase "audit: chmod 777 signalé WARN sans bloquer"
+r="$TMP/audit_chmod"; mkdir -p "$r/hooks/x/h"; write_meta "$r/hooks/x/h/META.md" x stable
+printf '#!/bin/bash\nchmod 777 "$f"\n' > "$r/hooks/x/h/h.sh"
+out="$(bash "$DIR/audit-hooks.sh" --root "$r" --strict 2>&1)"; rc=$?
+assert_contains "$out" "WARN" "chmod 777 signalé WARN"
+assert_exit 0 "$rc" "--strict ne bloque pas sur chmod 777 (WARN)"
 
 # --- doctor.sh ---------------------------------------------------------------
 testcase "doctor: repo sain au vert"
