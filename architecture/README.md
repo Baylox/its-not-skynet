@@ -1,8 +1,8 @@
-# architecture/
+# 🏗️ architecture/
 
 Documents combinant plusieurs ressources du repo : configs assemblées, flows d'exécution, décisions d'architecture.
 
-→ Retour au [CLAUDE.md](../CLAUDE.md)
+[⬅ README](../README.md) · [📒 Catalogue](../CATALOG.md) · [🤝 Contribuer](../CONTRIBUTING.md)
 
 ## Structure
 

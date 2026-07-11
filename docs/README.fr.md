@@ -1,47 +1,63 @@
 <div align="center">
 
-# its-not-skynet
+<img src="assets/banner.svg" alt="its-not-skynet — ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent." width="100%">
 
-**Des ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent.**
+<br><br>
 
 [![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
+[![licence : MIT](https://img.shields.io/badge/licence-MIT-58a6ff)](../LICENSE)
+[![PRs bienvenues](https://img.shields.io/badge/PRs-bienvenues-3fb950)](../CONTRIBUTING.md)
+[![100% validé par des humains](https://img.shields.io/badge/100%25-valid%C3%A9_par_des_humains-238636)](#-pourquoi-ce-repo)
 
-[Démarrage](#démarrage-rapide) · [Contribuer avec un agent](#contribuer-avec-un-agent) · [Contenu](#ce-quon-y-trouve) · [Philosophie](#pourquoi-ce-repo)
+**[Démarrage rapide](#-démarrage-rapide)** · **[Ce qu'on y trouve](#-ce-quon-y-trouve)** · **[Contribuer avec un agent](#-contribuer-avec-un-agent)** · **[Outillage](#-outillage)** · **[Philosophie](#-pourquoi-ce-repo)**
 
-[English](../README.md)
+🇬🇧 [English version](../README.md)
 
 </div>
 
 ---
 
-## Pourquoi ce repo
+## 🧭 Pourquoi ce repo
 
 L'écosystème des outils IA en CLI déborde de configs copiées-collées, de hooks jamais testés et de skills qui « marchaient sur la machine de quelqu'un ». **its-not-skynet** prend le contre-pied : chaque ressource a été **créée ou testée en conditions réelles** par son auteur.
 
+> [!IMPORTANT]
 > **Une seule règle, non négociable :** une ressource est soit **créée**, soit **explicitement validée** par son contributeur. Rien d'importé à l'aveugle. Rien qui dépende d'un réseau non maîtrisé à l'exécution.
 
 Un catalogue de confiance pour quiconque travaille avec des agents CLI IA — Claude Code, Codex CLI, Antigravity CLI, MCP, Ollama, ou tout autre outil.
 
-## Ce qu'on y trouve
+## 📦 Ce qu'on y trouve
 
-| Dossier | Description |
-|---------|-------------|
-| [`hooks/`](hooks/README.md) | Scripts déclenchés par Claude Code — `PreToolUse`, `PostToolUse`, `Notification`… |
-| [`skills/`](skills/README.md) | Skills réutilisables : slash commands et agents spécialisés |
-| [`configs/`](configs/README.md) | Fichiers de configuration prêts à copier — `settings.json`, `.mcp.json`, Ollama… |
-| [`subagents/`](subagents/) | Définitions de subagents spécialisés |
-| [`architecture/`](architecture/README.md) | Schémas et décisions d'architecture du projet |
+| | Dossier | Description |
+|---|---------|-------------|
+| 🪝 | [`hooks/`](../hooks/README.md) | Scripts déclenchés par Claude Code — `PreToolUse`, `PostToolUse`, `Notification`… |
+| 🧠 | [`skills/`](../skills/README.md) | Skills réutilisables : slash commands et agents spécialisés |
+| ⚙️ | [`configs/`](../configs/README.md) | Fichiers de configuration prêts à copier — `settings.json`, `.mcp.json`, Ollama… |
+| 🤖 | [`subagents/`](../subagents/README.md) | Définitions de subagents spécialisés |
+| 🏗️ | [`architecture/`](../architecture/README.md) | Schémas et décisions d'architecture du projet |
 
-Chaque ressource a un **`META.md`** : auteur, statut, usage, installation, environnement testé.
+Chaque ressource vit dans `<type>/<pseudo-contributeur>/<nom>/` et embarque un **`META.md`** — auteur, statut, usage, installation, environnement testé. C'est le point d'entrée unique pour la comprendre et l'installer.
 
-## Démarrage rapide
+**Tout parcourir** dans [`CATALOG.md`](../CATALOG.md) (auto-généré, avec statistiques), ou chercher depuis le terminal :
 
-1. Parcourez le dossier qui vous intéresse — `hooks/`, `skills/` ou `configs/`.
-2. Lisez le `META.md` de la ressource.
-3. Copiez le bloc d'installation dans votre `settings.json` ou votre projet.
+```bash
+bash scripts/find.sh -t hooks -s stable        # hooks stables uniquement
+bash scripts/find.sh laravel                   # recherche par mot-clé
+```
+
+## 🚀 Démarrage rapide
+
+**1.** Choisissez une ressource dans [`CATALOG.md`](../CATALOG.md) ou dans le dossier qui vous intéresse.
+**2.** Lisez son `META.md`.
+**3.** Installez-la — une commande, zéro copier-coller :
+
+```bash
+bash scripts/install.sh skills/<pseudo>/<nom> /chemin/de/votre/projet
+```
+
+…ou câblez-la à la main. Exemple pour un hook, dans `.claude/settings.json` :
 
 ```jsonc
-// Exemple : activer un hook dans .claude/settings.json
 {
   "hooks": {
     "PreToolUse": [
@@ -56,9 +72,14 @@ Chaque ressource a un **`META.md`** : auteur, statut, usage, installation, envir
 }
 ```
 
+> [!TIP]
 > `$CLAUDE_PROJECT_DIR` est exposée nativement par Claude Code — aucun `.env` requis.
 
-## Contribuer avec un agent
+## 🤝 Contribuer avec un agent
+
+<div align="center">
+<img src="assets/flow-fr.svg" alt="Pipeline : décrire le besoin, scaffolder avec scripts/new.sh, tester en conditions réelles, vérifier avec scripts/doctor.sh, ouvrir une PR rejouée par la CI. Cycle de vie du statut : draft, beta, stable." width="100%">
+</div>
 
 Ouvrez ce repo dans votre agent CLI et décrivez la ressource que vous voulez :
 
@@ -76,34 +97,48 @@ Chaque agent CLI dispose de son propre fichier de contexte :
 
 | Agent | Fichier de contexte |
 |-------|---------------------|
-| Claude Code | [`CLAUDE.md`](CLAUDE.md) |
-| Codex CLI | [`AGENTS.md`](AGENTS.md) |
-| Antigravity CLI | [`ANTIGRAVITY.md`](ANTIGRAVITY.md) |
+| Claude Code | [`CLAUDE.md`](../CLAUDE.md) |
+| Codex CLI | [`AGENTS.md`](../AGENTS.md) |
+| Antigravity CLI | [`ANTIGRAVITY.md`](../ANTIGRAVITY.md) |
 
-Les fichiers générés sont toujours des **drafts**. Le statut du `META.md` reste `draft` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
+> [!NOTE]
+> Les fichiers générés sont toujours des **drafts**. Le statut du `META.md` reste `draft` tant que **vous** n'avez pas exécuté la ressource en conditions réelles. On ne commite qu'après validation humaine — c'est la promesse du repo.
 
 **Vous gardez la main, l'agent fait la plomberie.**
 
-## Outillage
+Vous préférez la main ? Forkez, créez votre dossier `<type>/<pseudo>/<nom>/`, ajoutez un `META.md` (template dans [CONTRIBUTING.md](../CONTRIBUTING.md)), testez en conditions réelles, ouvrez une PR.
+
+## 🛠 Outillage
 
 Des helpers pur-shell sous [`scripts/`](../scripts/) — déterministes, zéro réseau, aucune dépendance au-delà de coreutils (`jq` optionnel). Le catalogue d'outils CLI validés a droit à ses propres outils CLI validés.
 
 | Script | Rôle |
 |--------|------|
-| `scripts/validate.sh` | Lint de chaque ressource : `META.md` présent, sections requises, statut valide (`stable`/`beta`/`draft`), nommage, fichier par type. Skills aussi : frontmatter YAML, `name`==dossier, description remplie, liens `references/` cassés/orphelins, budget de lignes. Exit 0/1. |
-| `scripts/build-index.sh` | Génère `CATALOG.md` (+ statistiques) et `index.json`. `--check` échoue si désynchronisé. |
-| `scripts/find.sh` | Recherche par mot-clé / type / statut / contributeur — `scripts/find.sh -t hooks -s stable`. |
-| `scripts/new.sh` | Scaffolde une ressource (`scripts/new.sh <type> <pseudo> <nom>`) avec un `META.md` pré-rempli (statut `draft`) et un stub. Les skills reçoivent une description orientée déclenchement et un dossier `references/` (progressive disclosure). |
-| `scripts/install.sh` | Installe une ressource dans un projet cible — `scripts/install.sh skills/<pseudo>/<nom> /chemin/du/projet`. Copie un skill (avec ses `references/`) vers `.claude/skills/<nom>/`, un subagent vers `.claude/agents/`, les scripts d'un hook vers `.claude/hooks/` (+ le bloc `settings.json` à câbler). Fini le copier-coller manuel. |
-| `scripts/doctor.sh` | Bilan avant PR : enchaîne lint + catalogue + audit sécurité et indique quoi corriger. `--new <type> <pseudo> <nom>` scaffolde → ouvre `$EDITOR` → lint en une commande. |
-| `scripts/audit-hooks.sh` | Scan sécurité des hooks — réseau à l'exécution, `curl \| sh`, `eval`, `rm -rf`. Consultatif ; `# audit:allow` neutralise une ligne. |
-| `scripts/test.sh` | Teste l'outillage lui-même sur des fixtures jetables. |
+| 🩺 `doctor.sh` | **Commencez ici.** Bilan avant PR : lint + synchro catalogue + audit sécurité, avec messages actionnables. `--new <type> <pseudo> <nom>` scaffolde → ouvre `$EDITOR` → linte en une commande. |
+| 🧱 `new.sh` | Scaffolde une ressource (`new.sh <type> <pseudo> <nom>`) : dossier + `META.md` pré-rempli (statut `draft`) + stub. Les skills reçoivent une description orientée déclenchement et un dossier `references/`. |
+| 📥 `install.sh` | Installe une ressource dans un projet cible : skill → `.claude/skills/<nom>/`, subagent → `.claude/agents/`, hook → `.claude/hooks/` (+ le bloc `settings.json` à câbler). |
+| ✅ `validate.sh` | Lint de chaque ressource : `META.md` présent, sections requises, statut valide, nommage, fichier par type. Skills aussi : frontmatter YAML, `name`==dossier, description remplie, liens `references/` cassés/orphelins, budget de lignes. Exit 0/1. |
+| 🗂 `build-index.sh` | Génère `CATALOG.md` (+ statistiques) et `index.json` depuis le filesystem. `--check` échoue si désynchronisé. |
+| 🔎 `find.sh` | Recherche par mot-clé / type / statut / contributeur. |
+| 🛡 `audit-hooks.sh` | Scan sécurité des hooks — réseau à l'exécution, `curl \| sh`, `eval`, `rm -rf`. Consultatif ; `# audit:allow` neutralise un faux positif. |
+| 🧪 `test.sh` | Teste l'outillage lui-même sur des fixtures jetables. |
 
-**Options courantes :** tous les scripts acceptent `--root <dir>` pour viser un autre dépôt. `validate.sh` / `audit-hooks.sh` ont `--quiet` (n'affiche que les problèmes) ; `audit-hooks.sh --strict` sort en 1 sur une alerte `HIGH` (CI). `build-index.sh` a `--check` (vérifie sans écrire — `index.json` n'est comparé que si `jq` est présent), `--no-json`, `--no-readme`. `install.sh` a `--dry-run` (aperçu) et `--force` (écrase). `doctor.sh` a `--fix` (régénère le catalogue au lieu d'échouer) et `--new`.
+<details>
+<summary><strong>Options courantes</strong></summary>
 
-Une GitHub Action rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
+<br>
 
-## Conventions
+- Tous les scripts acceptent `--root <dir>` pour viser un autre dépôt.
+- `validate.sh` / `audit-hooks.sh` : `--quiet` (n'affiche que les problèmes) ; `audit-hooks.sh --strict` sort en 1 sur une alerte `HIGH` (CI).
+- `build-index.sh` : `--check` (vérifie sans écrire — `index.json` n'est comparé que si `jq` est présent), `--no-json`, `--no-readme`.
+- `install.sh` : `--dry-run` (aperçu), `--force` (écrase).
+- `doctor.sh` : `--fix` (régénère le catalogue au lieu d'échouer), `--new`.
+
+</details>
+
+Une GitHub Action ([`validate.yml`](../.github/workflows/validate.yml)) rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
+
+## 📐 Conventions
 
 | Élément | Règle |
 |---------|-------|
@@ -111,21 +146,19 @@ Une GitHub Action rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `
 | Dossiers de skills / configs / architecture | `kebab-case` |
 | Chemin d'une ressource | `<type>/<pseudo-contributeur>/<nom>/` |
 | Hooks | Shell pur privilégié. Toute dépendance LLM doit être déclarée dans le `META.md`. |
+| Statut | 🟢 `stable` — éprouvé au quotidien · 🟡 `beta` — testé, usage limité · ⚪ `draft` — généré, jamais exécuté |
 
-## Contribuer à la main
+## 📄 Licence
 
-Forkez, créez votre dossier `<type>/<pseudo>/<nom>/`, ajoutez un `META.md` (template dans [CONTRIBUTING.md](CONTRIBUTING.md)), testez en conditions réelles, ouvrez une PR.
+Le travail original des contributeurs est sous licence **[MIT](../LICENSE)**.
 
-## Licence
-
-Le travail original des contributeurs est sous licence **[MIT](LICENSE)**.
-
-⚠️ **Le MIT ne couvre AUCUN contenu tiers.** Les ressources sous `anthropics/` sont l'œuvre d'Anthropic, restent leur propriété exclusive et sont régies par leurs propres termes (`LICENSE.txt` Apache-2.0 dans chaque dossier). Détails dans la section *Third-party content* du [LICENSE](LICENSE).
+> [!WARNING]
+> **Le MIT ne couvre AUCUN contenu tiers.** Les ressources sous `anthropics/` sont l'œuvre d'Anthropic, restent leur propriété exclusive et sont régies par leurs propres termes (`LICENSE.txt` Apache-2.0 dans chaque dossier). Détails dans la section *Third-party content* du [LICENSE](../LICENSE).
 
 ---
 
 <div align="center">
 
-*Construit par des devs qui testent ce qu'ils partagent.*
+🤖✅ *Construit par des devs qui testent ce qu'ils partagent.*
 
 </div>

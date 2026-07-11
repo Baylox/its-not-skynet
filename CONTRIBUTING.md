@@ -4,6 +4,10 @@ its-not-skynet ne fonctionne que si chacun apporte quelque chose.
 Nul besoin d'être expert — une config qui fait gagner du temps,
 un prompt qui fonctionne vraiment, c'est suffisant.
 
+<div align="center">
+<img src="docs/assets/flow-fr.svg" alt="Pipeline de contribution : décrire, scaffolder, tester en conditions réelles, vérifier avec doctor.sh, ouvrir une PR. Statut : draft → beta → stable." width="100%">
+</div>
+
 ## Devenir contributeur
 
 Toute personne peut soumettre une PR. Il n'y a pas de whitelist formelle —

@@ -1,6 +1,8 @@
-# subagents/
+# 🤖 subagents/
 
 Définitions de subagents spécialisés pour Claude Code.
+
+[⬅ README](../README.md) · [📒 Catalogue](../CATALOG.md) · [🤝 Contribuer](../CONTRIBUTING.md)
 
 ## Où les copier
 
