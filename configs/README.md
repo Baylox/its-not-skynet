@@ -1,8 +1,8 @@
-# configs/
+# ⚙️ configs/
 
 Fichiers de configuration validés et copiables pour les outils CLI/IA.
 
-→ Retour au [CLAUDE.md](../CLAUDE.md)
+[⬅ README](../README.md) · [📒 Catalogue](../CATALOG.md) · [🤝 Contribuer](../CONTRIBUTING.md)
 
 ## Structure
 

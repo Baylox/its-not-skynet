@@ -1,8 +1,8 @@
-# skills/
+# 🧠 skills/
 
 Skills Claude Code réutilisables (slash commands, agents spécialisés).
 
-→ Retour au [CLAUDE.md](../CLAUDE.md)
+[⬅ README](../README.md) · [📒 Catalogue](../CATALOG.md) · [🤝 Contribuer](../CONTRIBUTING.md)
 
 ## Structure
 
