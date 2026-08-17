@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="its-not-skynet — ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent." width="100%">
+# its-not-skynet
 
-<br><br>
+**Ressources CLI/IA validées par des humains.** Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent.
 
 [![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
 [![licence : MIT](https://img.shields.io/badge/licence-MIT-58a6ff)](../LICENSE)
@@ -83,9 +83,7 @@ bash scripts/install.sh skills/<pseudo>/<nom> /chemin/de/votre/projet
 
 ## Contribuer avec un agent
 
-<div align="center">
-<img src="assets/flow-fr.svg" alt="Pipeline : décrire le besoin, scaffolder avec scripts/new.sh, tester en conditions réelles, vérifier avec scripts/doctor.sh, ouvrir une PR rejouée par la CI. Cycle de vie du statut : draft, beta, stable." width="100%">
-</div>
+**décrire → scaffolder → tester → vérifier → ouvrir une PR** — cycle de statut : `draft` → `beta` → `stable`
 
 Ouvrez ce repo dans votre agent CLI préféré et décrivez ce que vous voulez :
 
