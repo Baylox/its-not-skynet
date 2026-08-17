@@ -4,9 +4,7 @@ its-not-skynet ne fonctionne que si chacun apporte quelque chose.
 Nul besoin d'être expert — une config qui fait gagner du temps,
 un prompt qui fonctionne vraiment, c'est suffisant.
 
-<div align="center">
-<img src="docs/assets/flow-fr.svg" alt="Pipeline de contribution : décrire, scaffolder, tester en conditions réelles, vérifier avec doctor.sh, ouvrir une PR. Statut : draft → beta → stable." width="100%">
-</div>
+**décrire → scaffolder → tester → vérifier → ouvrir une PR** — statut : `draft` → `beta` → `stable`
 
 ## Devenir contributeur
 

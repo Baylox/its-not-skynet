@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/assets/banner.svg" alt="its-not-skynet — validated CLI/AI resources. No magic. No uncontrolled network. Just tools that work." width="100%">
+# its-not-skynet
 
-<br><br>
+**Validated CLI/AI resources.** No magic. No uncontrolled network. Just tools that work.
 
 [![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-58a6ff)](LICENSE)
@@ -83,9 +83,7 @@ bash scripts/install.sh skills/<handle>/<name> /path/to/your/project
 
 ## Contribute with an agent
 
-<div align="center">
-<img src="docs/assets/flow.svg" alt="Pipeline: describe your need, scaffold with scripts/new.sh, test in real conditions, check with scripts/doctor.sh, open a PR replayed by CI. Status lifecycle: draft, beta, stable." width="100%">
-</div>
+**describe → scaffold → test → check → open a PR** — status lifecycle: `draft` → `beta` → `stable`
 
 Open this repo in your CLI agent of choice and describe what you want:
 
