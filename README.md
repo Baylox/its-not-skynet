@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="docs/assets/hero.svg" alt="its-not-skynet — validated CLI/AI resources drawn as an engineering blueprint and stamped HUMAN-VALIDATED. No magic. No uncontrolled network. Just tools that work." width="100%">
+<img src="docs/assets/banner.svg" alt="its-not-skynet — validated CLI/AI resources. No magic. No uncontrolled network. Just tools that work." width="100%">
 
 <br><br>
 
 [![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
-[![license: MIT](https://img.shields.io/badge/license-MIT-4FC3F7?labelColor=0A1B2E)](LICENSE)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-3DDC97?labelColor=0A1B2E)](CONTRIBUTING.md)
-[![100% human-validated](https://img.shields.io/badge/100%25-human--validated-FF4D3D?labelColor=0A1B2E)](#why-this-repo)
+[![license: MIT](https://img.shields.io/badge/license-MIT-58a6ff)](LICENSE)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-3fb950)](CONTRIBUTING.md)
+[![100% human-validated](https://img.shields.io/badge/100%25-human--validated-238636)](#why-this-repo)
 
 **[Quick start](#quick-start)** · **[What's inside](#whats-inside)** · **[Contribute with an agent](#contribute-with-an-agent)** · **[Tooling](#tooling)** · **[Philosophy](#why-this-repo)**
 
@@ -15,7 +15,7 @@
 
 </div>
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## Why this repo
 
@@ -26,7 +26,7 @@ The CLI/AI ecosystem is full of copy-pasted configs, untested hooks, and skills 
 
 A trust catalog for anyone working with CLI AI agents — Claude Code, Codex CLI, Antigravity CLI, MCP, Ollama, or any other tool.
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## What's inside
 
@@ -47,7 +47,7 @@ bash scripts/find.sh -t hooks -s stable        # stable hooks only
 bash scripts/find.sh laravel                   # keyword search
 ```
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## Quick start
 
@@ -79,12 +79,12 @@ bash scripts/install.sh skills/<handle>/<name> /path/to/your/project
 > [!TIP]
 > `$CLAUDE_PROJECT_DIR` is exposed natively by Claude Code — no `.env` required.
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## Contribute with an agent
 
 <div align="center">
-<img src="docs/assets/pipeline.svg" alt="Contribution line: describe your need, scaffold with scripts/new.sh, test in real conditions, check with scripts/doctor.sh, open a PR replayed by CI. Status lifecycle: draft, beta, stable." width="100%">
+<img src="docs/assets/flow.svg" alt="Pipeline: describe your need, scaffold with scripts/new.sh, test in real conditions, check with scripts/doctor.sh, open a PR replayed by CI. Status lifecycle: draft, beta, stable." width="100%">
 </div>
 
 Open this repo in your CLI agent of choice and describe what you want:
@@ -114,7 +114,7 @@ Each agent CLI has its own context file:
 
 Prefer doing it by hand? Fork, create your `<type>/<handle>/<name>/` folder, add a `META.md` (template in [CONTRIBUTING.md](CONTRIBUTING.md)), test in real conditions, open a PR.
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## Tooling
 
@@ -146,7 +146,7 @@ Pure-shell helpers under [`scripts/`](scripts/) — deterministic, no network, n
 
 A GitHub Action ([`validate.yml`](.github/workflows/validate.yml)) replays `test.sh`, `validate.sh`, `build-index.sh --check` and `audit-hooks.sh --strict` on every PR.
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## Conventions
 
@@ -158,7 +158,7 @@ A GitHub Action ([`validate.yml`](.github/workflows/validate.yml)) replays `test
 | Hooks | Pure shell preferred. Any LLM dependency must be declared in `META.md`. |
 | Status | `stable` — battle-tested daily · `beta` — tested, limited mileage · `draft` — generated, never run |
 
-<img src="docs/assets/divider.svg" alt="" width="100%">
+---
 
 ## License
 
@@ -167,10 +167,10 @@ Original contributor work is under **[MIT](LICENSE)**.
 > [!WARNING]
 > **The MIT license does NOT cover third-party content.** Resources under `anthropics/` are Anthropic's exclusive property, governed solely by their own terms (`LICENSE.txt` Apache-2.0 in each folder). See the *Third-party content* section in [LICENSE](LICENSE).
 
-<br>
+---
 
 <div align="center">
 
-<img src="docs/assets/footer.svg" alt="Built by devs who test what they share." width="100%">
+🤖✅ *Built by devs who test what they share.*
 
 </div>

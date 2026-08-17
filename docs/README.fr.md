@@ -1,13 +1,13 @@
 <div align="center">
 
-<img src="assets/hero-fr.svg" alt="its-not-skynet — ressources CLI/IA validées, dessinées comme un plan d'ingénieur et tamponnées VALIDÉ HUMAIN. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent." width="100%">
+<img src="assets/banner.svg" alt="its-not-skynet — ressources CLI/IA validées par des humains. Pas de magie. Pas de réseau non maîtrisé. Juste des outils qui marchent." width="100%">
 
 <br><br>
 
 [![validate](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml/badge.svg)](https://github.com/baylox/its-not-skynet/actions/workflows/validate.yml)
-[![licence : MIT](https://img.shields.io/badge/licence-MIT-4FC3F7?labelColor=0A1B2E)](../LICENSE)
-[![PRs bienvenues](https://img.shields.io/badge/PRs-bienvenues-3DDC97?labelColor=0A1B2E)](../CONTRIBUTING.md)
-[![100% validé par des humains](https://img.shields.io/badge/100%25-valid%C3%A9_par_des_humains-FF4D3D?labelColor=0A1B2E)](#pourquoi-ce-repo)
+[![licence : MIT](https://img.shields.io/badge/licence-MIT-58a6ff)](../LICENSE)
+[![PRs bienvenues](https://img.shields.io/badge/PRs-bienvenues-3fb950)](../CONTRIBUTING.md)
+[![100% validé par des humains](https://img.shields.io/badge/100%25-valid%C3%A9_par_des_humains-238636)](#pourquoi-ce-repo)
 
 **[Démarrage rapide](#démarrage-rapide)** · **[Ce qu'on y trouve](#ce-quon-y-trouve)** · **[Contribuer avec un agent](#contribuer-avec-un-agent)** · **[Outillage](#outillage)** · **[Philosophie](#pourquoi-ce-repo)**
 
@@ -15,7 +15,7 @@
 
 </div>
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Pourquoi ce repo
 
@@ -26,7 +26,7 @@ L'écosystème des outils IA en CLI déborde de configs copiées-collées, de ho
 
 Un catalogue de confiance pour quiconque travaille avec des agents CLI IA — Claude Code, Codex CLI, Antigravity CLI, MCP, Ollama, ou tout autre outil.
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Ce qu'on y trouve
 
@@ -47,7 +47,7 @@ bash scripts/find.sh -t hooks -s stable        # hooks stables uniquement
 bash scripts/find.sh laravel                   # recherche par mot-clé
 ```
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Démarrage rapide
 
@@ -79,12 +79,12 @@ bash scripts/install.sh skills/<pseudo>/<nom> /chemin/de/votre/projet
 > [!TIP]
 > `$CLAUDE_PROJECT_DIR` est exposé nativement par Claude Code — aucun `.env` requis.
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Contribuer avec un agent
 
 <div align="center">
-<img src="assets/pipeline-fr.svg" alt="Ligne de contribution : décrivez votre besoin, scaffoldez avec scripts/new.sh, testez en conditions réelles, vérifiez avec scripts/doctor.sh, ouvrez une PR rejouée par la CI. Cycle de statut : draft, beta, stable." width="100%">
+<img src="assets/flow-fr.svg" alt="Pipeline : décrire le besoin, scaffolder avec scripts/new.sh, tester en conditions réelles, vérifier avec scripts/doctor.sh, ouvrir une PR rejouée par la CI. Cycle de vie du statut : draft, beta, stable." width="100%">
 </div>
 
 Ouvrez ce repo dans votre agent CLI préféré et décrivez ce que vous voulez :
@@ -114,7 +114,7 @@ Chaque agent CLI a son fichier de contexte :
 
 Vous préférez le faire à la main ? Forkez, créez votre dossier `<type>/<pseudo>/<nom>/`, ajoutez un `META.md` (template dans [CONTRIBUTING.md](../CONTRIBUTING.md)), testez en conditions réelles, ouvrez une PR.
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Outillage
 
@@ -146,7 +146,7 @@ Des outils pur-shell sous [`scripts/`](../scripts/) — déterministes, zéro r�
 
 Une GitHub Action ([`validate.yml`](../.github/workflows/validate.yml)) rejoue `test.sh`, `validate.sh`, `build-index.sh --check` et `audit-hooks.sh --strict` sur chaque PR.
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Conventions
 
@@ -158,7 +158,7 @@ Une GitHub Action ([`validate.yml`](../.github/workflows/validate.yml)) rejoue `
 | Hooks | Shell pur privilégié. Toute dépendance LLM doit être déclarée dans le `META.md`. |
 | Statut | `stable` — éprouvé au quotidien · `beta` — testé, kilométrage limité · `draft` — généré, jamais exécuté |
 
-<img src="assets/divider.svg" alt="" width="100%">
+---
 
 ## Licence
 
@@ -167,10 +167,10 @@ Le travail original des contributeurs est sous **[MIT](../LICENSE)**.
 > [!WARNING]
 > **La licence MIT ne couvre PAS le contenu tiers.** Les ressources sous `anthropics/` sont la propriété exclusive d'Anthropic, régies uniquement par leurs propres conditions (`LICENSE.txt` Apache-2.0 dans chaque dossier). Voir la section *Third-party content* dans [LICENSE](../LICENSE).
 
-<br>
+---
 
 <div align="center">
 
-<img src="assets/footer-fr.svg" alt="Construit par des devs qui testent ce qu'ils partagent." width="100%">
+🤖✅ *Construit par des devs qui testent ce qu'ils partagent.*
 
 </div>
